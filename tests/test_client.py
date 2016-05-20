@@ -1,6 +1,5 @@
 import pytest
 from app import create_app
-from flask import url_for
 
 class TestCase():
     def setup(self):
@@ -11,3 +10,6 @@ class TestCase():
         response = self.client.get('/')
         assert response.status_code == 200
         assert ('Hello world 2' in response.get_data(as_text=True))
+
+    def test_testing(self):
+        assert self.app.config['TESTING'] == True
