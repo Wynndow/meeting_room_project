@@ -1,9 +1,20 @@
 <!doctype html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
   <title>Rooms</title>
 </head>
 <body>
-  Hello world {{1+1}}
+  <div class='room-name-container'>
+    <div class='room-name'>
+      Time
+    </div>
+    {% for room in rooms %}
+    <div class='room-name'>
+      {{ room.resourceName }}
+    </div>
+    {% endfor %}
+  </div>
+  {{rooms}}
 </body>
 </html>

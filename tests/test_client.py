@@ -9,7 +9,7 @@ class TestCase():
     def test_home_page(self):
         response = self.client.get('/')
         assert response.status_code == 200
-        assert ('Hello world 2' in response.get_data(as_text=True))
+        assert ('Rooms' in response.get_data(as_text=True))
 
     def test_testing(self):
         assert self.app.config['TESTING'] == True

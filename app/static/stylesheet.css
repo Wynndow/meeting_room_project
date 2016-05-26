@@ -1,0 +1,15 @@
+body {
+  min-width: 1420px;
+  font-family: Tahoma;
+  font-size: 0.8em;
+  border-bottom: solid black 1px;
+
+}
+.room-name {
+  width: 67px;
+  display: inline-block;
+}
+
+.room-name-container {
+  width: 1420px;
+}
