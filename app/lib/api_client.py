@@ -18,22 +18,33 @@ def get_room_list():
     return _filter_rooms(resources)
 
 def get_busy_free(room_list):
-    today = datetime.utcnow()
-    day_start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
-    day_end = today.replace(hour=23, minute=59, second=59).isoformat() + 'Z'
-    calendars = {}
-    for room in room_list:
-        calendars.update({"id": room.get('resourceEmail')})
+    times = _set_times()
+    calendar_ids = _extract_calendar_ids(room_list)
+    body = _build_free_busy_body(times, calendar_ids)
+    return calendar.freebusy().query(body=body).execute()
 
-    body = {
-                "timeMin": day_start,
-                "timeMax": day_end,
-                "timeZone": 'GMT',
-                "items": [calendars]
+def _set_times():
+    today = datetime.utcnow()
+    start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
+    end = today.replace(hour=23, minute=59, second=59).isoformat() + 'Z'
+    return {
+            'start': start,
+            'end': end
             }
 
-    response = calendar.freebusy().query(body=body).execute()
-    return response
+
+def _build_free_busy_body(times, calendar_ids):
+    return {
+                "timeMin": times['start'],
+                "timeMax": times['end'],
+                "timeZone": 'GMT',
+                "items": [calendar_ids]
+            }
+
+def _extract_calendar_ids(room_list):
+    for room in room_list:
+        calendars = {}
+        calendars.update({"id": room.get('resourceEmail')})
 
 def _fetch_resources():
     return directory.resources().calendars().list(customer='my_customer').execute().get('items', [])
