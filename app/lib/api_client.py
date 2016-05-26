@@ -3,18 +3,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 from httplib2 import Http
 from apiclient.discovery import build
 
-def return_authorised_http():
-    scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
-        'https://www.googleapis.com/auth/calendar']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'client_secret.json', scopes=scopes)
-    delegated_credentials = credentials.create_delegated(os.environ['MRP_DELEGATED_ACCOUNT'])
-    return delegated_credentials.authorize(Http())
+scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
+          'https://www.googleapis.com/auth/calendar']
 
 def get_room_list():
-    http_auth = return_authorised_http()
-    directory = build('admin', 'directory_v1', http=http_auth)
-    resources = _fetch_resources(directory)
+    resources = _fetch_resources(_build_directory())
     return _filter_rooms(resources)
 
 def _fetch_resources(directory):
@@ -23,3 +16,16 @@ def _fetch_resources(directory):
 def _filter_rooms(resources):
     room_types = ['Meeting Room', 'Meeting Space', 'Meeting space', 'Boardroom']
     return [resource for resource in resources if resource.get('resourceType') in room_types]
+
+def _build_directory():
+     http_auth = _return_authorised_http()
+     return build('admin', 'directory_v1', http=http_auth)
+
+def _return_authorised_http():
+    credentials = _create_delegated_credentials(scopes)
+    return credentials.authorize(Http())
+
+def _create_delegated_credentials(scopes):
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        'client_secret.json', scopes=scopes)
+    return credentials.create_delegated(os.environ['MRP_DELEGATED_ACCOUNT'])

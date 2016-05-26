@@ -5,7 +5,7 @@ from httplib2 import Http
 
 class TestApiClient():
     def test_return_authorised_http(self):
-        assert type(api_client.return_authorised_http()) is Http
+      assert type(api_client._return_authorised_http()) is Http
 
     def test_get_room_list(self):
         rooms = api_client.get_room_list()
