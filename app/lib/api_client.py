@@ -38,13 +38,14 @@ def _build_free_busy_body(times, calendar_ids):
                 "timeMin": times['start'],
                 "timeMax": times['end'],
                 "timeZone": 'GMT',
-                "items": [calendar_ids]
+                "items": calendar_ids
             }
 
 def _extract_calendar_ids(room_list):
+    calendars = []
     for room in room_list:
-        calendars = {}
-        calendars.update({"id": room.get('resourceEmail')})
+        calendars.append({"id": room.get('resourceEmail')})
+    return calendars
 
 def _fetch_resources():
     return directory.resources().calendars().list(customer='my_customer').execute().get('items', [])
