@@ -15,16 +15,18 @@
     </div>
     {% endfor %}
   </div>
-  <div class='room-name'>
+  <div class='block-container'>
+    <div class='room-block-container'>
+    </div>
+      {% for room in rooms %}
+        <div class='room-block-container'>
+            {% for block in full_days.get(room.resourceEmail) %}
+              <div class='{{ block.status }}' style='height: {{ block.length }}px'>
+                {{ block.status }}
+              </div>
+            {% endfor %}
+        </div>
+      {% endfor %}
   </div>
-    {% for room in rooms %}
-      <div class='room-name'>
-          {% for block in full_days.get(room.resourceEmail) %}
-            <div class='{{ block.status }}' style='height: {{ block.length }}px'>
-              {{ block.status }}
-            </div>
-          {% endfor %}
-      </div>
-    {% endfor %}
 </body>
 </html>

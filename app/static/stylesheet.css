@@ -15,11 +15,21 @@ body {
 }
 
 .Free {
-  border: black solid 1px;
-  background-color: green;
+  box-sizing: border-box;
+  background-color: #00CC00;
+  border: 5px solid #006600;
+  border-radius: 5px;
 }
 
 .Busy {
-  border: black solid 1px;
-  background-color: red;
+  box-sizing: border-box;
+  background-color: #FF0000;
+  border: 5px solid #990000;
+  border-radius: 5px;
+}
+
+.room-block-container {
+  width: 67px;
+  display: inline-block;
+  vertical-align: top;
 }
