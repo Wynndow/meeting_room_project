@@ -2,6 +2,9 @@ body {
   min-width: 1420px;
   font-family: Tahoma;
   font-size: 0.8em;
+  color: white;
+  background-color: black;
+
 
 }
 .room-name {
@@ -19,6 +22,7 @@ body {
   background-color: #00CC00;
   border: 5px solid #006600;
   border-radius: 5px;
+  overflow:hidden;
 }
 
 .Busy {
@@ -26,10 +30,17 @@ body {
   background-color: #FF0000;
   border: 5px solid #990000;
   border-radius: 5px;
+  overflow:hidden;
 }
 
 .room-block-container {
   width: 67px;
   display: inline-block;
   vertical-align: top;
+}
+
+.hour {
+  box-sizing: border-box;
+  height: 60px;
+  border-top: white solid 2px;
 }
