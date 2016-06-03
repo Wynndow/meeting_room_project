@@ -15,6 +15,12 @@
     </div>
     {% endfor %}
   </div>
-  {{free_busy}}
+  <div class='room-name'>
+  </div>
+  {% for room in rooms %}
+    <div class='room-name'>
+      {{ free_busy.get(room.resourceEmail).busy }}
+    </div>
+  {% endfor %}
 </body>
 </html>

@@ -17,7 +17,7 @@ def get_room_list():
     resources = _fetch_resources()
     return _filter_rooms(resources)
 
-def get_busy_free(room_list):
+def get_free_busy(room_list):
     times = _set_times()
     calendar_ids = _extract_calendar_ids(room_list)
     body = _build_free_busy_body(times, calendar_ids)

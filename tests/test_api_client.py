@@ -21,6 +21,6 @@ class TestApiClient():
         assert 'GDS Boardroom' in room_names
         assert not 'Device Lab - Fire HD7' in room_names
 
-    def test_get_busy_free_returns_json(self):
-        response = api_client.get_busy_free(room_data)
+    def test_get_free_busy_returns_json(self):
+        response = api_client.get_free_busy(room_data)
         assert response.get('kind') == 'calendar#freeBusy'

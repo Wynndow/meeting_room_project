@@ -2,7 +2,6 @@ body {
   min-width: 1420px;
   font-family: Tahoma;
   font-size: 0.8em;
-  border-bottom: solid black 1px;
 
 }
 .room-name {
@@ -12,4 +11,5 @@ body {
 
 .room-name-container {
   width: 1420px;
+  border-bottom: solid black 1px;
 }
