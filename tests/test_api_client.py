@@ -1,7 +1,9 @@
 import pytest
+import mock
 from app import create_app
 from app.lib import api_client
 from httplib2 import Http
+
 
 room_data = [{
                 u'kind': u'admin#directory#resources#calendars#CalendarResource',
@@ -15,11 +17,12 @@ room_data = [{
 
 class TestApiClient():
 
-    def test_get_room_list(self):
+    @mock.patch('app.lib.api_client._fetch_resources')
+    def test_get_room_list(self, _fetch_resources):
+        _fetch_resources.return_value = room_data
         rooms = api_client.get_room_list()
         room_names = map(lambda room: room['resourceName'], rooms)
-        assert 'GDS Boardroom' in room_names
-        assert not 'Device Lab - Fire HD7' in room_names
+        assert 'Meeting Room 305 (12)' in room_names
 
     def test_get_free_busy_returns_json(self):
         response = api_client.get_free_busy(room_data)
