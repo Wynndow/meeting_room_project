@@ -1,7 +1,9 @@
+import json
+
 def create_full_day_json(data):
     output = []
     if len(data) == 0:
-        return output
+        return [{'times': '00:00 to 00:00', 'length': 1440, 'status': 'Free'}]
     for booking in data:
         if len(output) == 0:
             length = _time_in_minutes(booking.get('start'))
@@ -23,6 +25,7 @@ def create_full_day_json(data):
             times = '{} to {}'.format(booking.get('start')[-9:-4], booking.get('end')[-9:-4])
 
             output.append({'times': times, 'length': length, 'status': 'Busy'})
+            continue
 
         times = '{} to {}'.format(output[-1].get('times')[-5:], booking.get('start')[-9:-4])
         output.append({'times': times, 'length': length, 'status': 'Free'})
@@ -37,7 +40,7 @@ def create_full_day_json(data):
         times = '{} to {}'.format(output[-1].get('times')[-5:], '00:00')
         output.append({'times': times, 'length': length, 'status': 'Free'})
 
-    print output
+    print json.dumps(output, sort_keys=True, indent=4)
     return output
 
 
