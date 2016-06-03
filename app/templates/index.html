@@ -17,10 +17,14 @@
   </div>
   <div class='room-name'>
   </div>
-  {% for room in rooms %}
-    <div class='room-name'>
-      {{ free_busy.get(room.resourceEmail).busy }}
-    </div>
-  {% endfor %}
+    {% for room in rooms %}
+      <div class='room-name'>
+          {% for block in full_days.get(room.resourceEmail) %}
+            <div class='{{ block.status }}' style='height: {{ block.length }}px'>
+              {{ block.status }}
+            </div>
+          {% endfor %}
+      </div>
+    {% endfor %}
 </body>
 </html>

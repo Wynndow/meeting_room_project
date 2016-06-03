@@ -13,3 +13,13 @@ body {
   width: 1420px;
   border-bottom: solid black 1px;
 }
+
+.Free {
+  border: black solid 1px;
+  background-color: green;
+}
+
+.Busy {
+  border: black solid 1px;
+  background-color: red;
+}

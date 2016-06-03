@@ -1,5 +1,3 @@
-import json
-
 def create_full_day_json(data):
     output = []
     if len(data) == 0:
@@ -25,7 +23,6 @@ def create_full_day_json(data):
         _add_last_block_if_end_of_day_is_free(output)
 
     return output
-
 
 
 def _add_last_block_if_end_of_day_is_free(output):
@@ -55,7 +52,7 @@ def _time_in_minutes(time_string):
         components = time_string[-9:-4].split(':')
     else:
         components = time_string.split(':')
-        
+
     int_components = map(lambda time_comp: int(time_comp), components)
     int_components[0] = int_components[0] * 60
     return sum(int_components)
