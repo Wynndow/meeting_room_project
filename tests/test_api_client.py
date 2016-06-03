@@ -3,6 +3,7 @@ import mock
 from app import create_app
 from app.lib import api_client
 from httplib2 import Http
+from datetime import datetime
 
 
 room_data = [{
@@ -15,6 +16,7 @@ room_data = [{
                 u'resourceName': u'Meeting Room 305 (12)'
             }]
 
+
 class TestApiClient():
 
     @mock.patch('app.lib.api_client._fetch_resources')
@@ -24,6 +26,22 @@ class TestApiClient():
         room_names = map(lambda room: room['resourceName'], rooms)
         assert 'Meeting Room 305 (12)' in room_names
 
-    def test_get_free_busy_returns_json(self):
+    @mock.patch('app.lib.api_client.calendar.freebusy')
+    def test_get_free_busy_calls_api_with_data(self, freebusy):
+
+        query_return = mock.MagicMock()
+        query_return.execute.return_value = None
+        freebusy_return = mock.MagicMock()
+        freebusy_return.query.return_value = query_return
+        freebusy.return_value = freebusy_return
+
         response = api_client.get_free_busy(room_data)
-        assert response.get('kind') == 'calendar#freeBusy'
+
+        freebusy_return.query.assert_called_once_with(body = {
+            'timeMax': mock.ANY,
+            'timeZone': 'GMT',
+            'timeMin': mock.ANY,
+            'items': [{
+                'id': u'digital.cabinet-office.gov.uk_2d393731373339322d363531@resource.calendar.google.com'
+            }]
+        })
