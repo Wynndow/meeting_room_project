@@ -37,7 +37,7 @@ def _build_free_busy_body(times, calendar_ids):
     return {
                 "timeMin": times['start'],
                 "timeMax": times['end'],
-                "timeZone": 'GMT',
+                "timeZone": 'GMT+01:00',
                 "items": calendar_ids
             }
 
