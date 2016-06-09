@@ -24,6 +24,11 @@ def create_full_day_json(data):
 
     return output
 
+def create_full_days(rooms, free_busy):
+    full_days = {}
+    for room in rooms:
+        full_days[room.get('resourceEmail')] = create_full_day_json(free_busy.get(room.get('resourceEmail')).get('busy'))
+    return full_days
 
 def _add_last_block_if_end_of_day_is_free(output):
     length = 1440 - _time_in_minutes(output[-1].get('times')[-5:])

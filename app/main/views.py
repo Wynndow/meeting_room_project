@@ -7,7 +7,6 @@ import pdb
 def index():
     rooms = api_client.get_room_list()
     free_busy = api_client.get_free_busy(rooms).get('calendars')
-    full_days = {}
-    for room in rooms:
-        full_days[room.get('resourceEmail')] = day_maker.create_full_day_json(free_busy.get(room.get('resourceEmail')).get('busy'))
+    full_days = day_maker.create_full_days(rooms, free_busy)
+
     return render_template('index.html', rooms=rooms, full_days=full_days)
