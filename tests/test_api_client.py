@@ -39,7 +39,7 @@ class TestApiClient():
 
         freebusy_return.query.assert_called_once_with(body = {
             'timeMax': mock.ANY,
-            'timeZone': 'GMT',
+            'timeZone': 'GMT+01:00',
             'timeMin': mock.ANY,
             'items': [{
                 'id': u'digital.cabinet-office.gov.uk_2d393731373339322d363531@resource.calendar.google.com'

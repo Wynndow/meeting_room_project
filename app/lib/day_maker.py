@@ -13,7 +13,7 @@ def create_full_day_json(data):
             _add_block_to_day(output, times, length, 'Busy')
             continue
 
-        times = '{} to {}'.format(output[-1].get('times')[-5:], booking.get('start')[-9:-4])
+        times = '{} to {}'.format(output[-1].get('times')[-5:], booking.get('start')[11:16])
         _add_block_to_day(output, times, length, 'Free')
 
         length, times = _length_and_times_for_busy_block(booking)
@@ -31,17 +31,18 @@ def _add_last_block_if_end_of_day_is_free(output):
     _add_block_to_day(output, times, length, 'Free')
 
 def _add_first_free_and_busy_blocks(booking, output):
+
     length = _time_in_minutes(booking.get('start'))
-    times = '00:00 to {}'.format(booking.get('start')[-9:-4])
+    times = '00:00 to {}'.format(booking.get('start')[11:16])
     _add_block_to_day(output, times, length, 'Free')
 
     length = _time_in_minutes(booking.get('end')) - length
-    times = '{} to {}'.format(booking.get('start')[-9:-4], booking.get('end')[-9:-4])
+    times = '{} to {}'.format(booking.get('start')[11:16], booking.get('end')[11:16])
     _add_block_to_day(output, times, length, 'Busy')
 
 def _length_and_times_for_busy_block(booking):
     length = _time_in_minutes(booking.get('end')) - _time_in_minutes(booking.get('start'))
-    times = '{} to {}'.format(booking.get('start')[-9:-4], booking.get('end')[-9:-4])
+    times = '{} to {}'.format(booking.get('start')[11:16], booking.get('end')[11:16])
     return length, times
 
 def _add_block_to_day(output, times, length, status):
@@ -49,7 +50,7 @@ def _add_block_to_day(output, times, length, status):
 
 def _time_in_minutes(time_string):
     if len(time_string) > 5:
-        components = time_string[-9:-4].split(':')
+        components = time_string[11:16].split(':')
     else:
         components = time_string.split(':')
 
