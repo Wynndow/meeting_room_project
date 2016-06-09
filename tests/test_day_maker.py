@@ -10,6 +10,7 @@ test_data_2 = [{u'start': u'2016-06-03T08:30:00Z', u'end': u'2016-06-03T09:30:00
                {u'start': u'2016-06-03T12:30:00Z', u'end': u'2016-06-03T13:15:00Z'},
                {u'start': u'2016-06-03T13:30:00Z', u'end': u'2016-06-03T15:15:00Z'}]
 
+
 class TestDayMaker():
 
     def test_create_full_day_json(self):
@@ -38,7 +39,6 @@ class TestDayMaker():
         output = day_maker.create_full_day_json([])
         expected = [{'times': '00:00 to 00:00', 'length': 1440, 'status': 'Free'}]
         assert output == expected
-
 
     def test_time_in_minutes(self):
         string = '2016-06-03T09:30:00Z'

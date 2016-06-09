@@ -3,6 +3,7 @@ from . import main
 from ..lib import api_client, day_maker
 import pdb
 
+
 @main.route('/')
 def index():
     rooms = api_client.get_room_list()
