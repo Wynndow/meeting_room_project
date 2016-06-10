@@ -20,15 +20,16 @@ def get_room_list(floor):
     return _filter_rooms(resources, floor)
 
 
-def get_free_busy(room_list):
-    times = _set_times()
+def get_free_busy(room_list, date):
+    times = _set_times(date)
     calendar_ids = _extract_calendar_ids(room_list)
     body = _build_free_busy_body(times, calendar_ids)
     return calendar.freebusy().query(body=body).execute()
 
 
-def _set_times():
-    today = datetime.utcnow()
+def _set_times(date):
+    date = date.split('-')
+    today = datetime(int(date[0]), int(date[1]), int(date[2]))
     start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
     end = today.replace(hour=23, minute=59, second=59).isoformat() + 'Z'
     return {
