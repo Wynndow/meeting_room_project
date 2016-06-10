@@ -22,7 +22,8 @@ class TestApiClient():
     @mock.patch('app.lib.api_client._fetch_resources')
     def test_get_room_list(self, _fetch_resources):
         _fetch_resources.return_value = data
-        rooms = api_client.get_room_list()
+        floor = 'third'
+        rooms = api_client.get_room_list(floor)
         room_names = map(lambda room: room['resourceName'], rooms)
         assert 'Meeting Room 305 (12)' in room_names
 

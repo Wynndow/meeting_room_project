@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from . import main
 from ..lib import api_client, day_maker
 import pdb
@@ -6,7 +6,8 @@ import pdb
 
 @main.route('/')
 def index():
-    rooms = api_client.get_room_list()
+    floor = request.args.get('floor') or 'third'
+    rooms = api_client.get_room_list(floor)
     free_busy = api_client.get_free_busy(rooms).get('calendars')
     full_days = day_maker.create_full_days(rooms, free_busy)
 

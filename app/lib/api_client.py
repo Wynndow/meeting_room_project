@@ -1,4 +1,5 @@
 import os
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 from httplib2 import Http
 from apiclient.discovery import build
@@ -14,9 +15,9 @@ directory = build('admin', 'directory_v1', http=http)
 calendar = build('calendar', 'v3', http=http)
 
 
-def get_room_list():
+def get_room_list(floor):
     resources = _fetch_resources()
-    return _filter_rooms(resources)
+    return _filter_rooms(resources, floor)
 
 
 def get_free_busy(room_list):
@@ -56,6 +57,15 @@ def _fetch_resources():
     return directory.resources().calendars().list(customer='my_customer').execute().get('items', [])
 
 
-def _filter_rooms(resources):
-    room_types = ['Meeting Room', 'Meeting Space', 'Meeting space', 'Boardroom']
-    return [resource for resource in resources if resource.get('resourceType') in room_types]
+def _filter_rooms(resources, floor):
+    with open('./app/lib/room_ids_by_floor.json') as file:
+        room_ids_by_floor = json.load(file)
+
+    room_ids = room_ids_by_floor.get(floor)
+    output = []
+    for room_id in room_ids:
+        for resource in resources:
+            if resource.get('resourceEmail') == room_id:
+                output.append(resource)
+
+    return output
