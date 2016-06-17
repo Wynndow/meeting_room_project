@@ -41,14 +41,9 @@
   </section>
   <div class='block-container'>
     <div class='room-block-container'>
-      {% for number in range(10) %}
+      {% for time in times %}
         <div class='hour'>
-          0{{number}}:00
-        </div>
-      {% endfor %}
-      {% for number in range(10, 25) %}
-        <div class='hour'>
-          {{number}}:00
+          {{time}}:00
         </div>
       {% endfor %}
     </div>
