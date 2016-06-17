@@ -35,8 +35,9 @@ class TestApiClient():
         freebusy_return = mock.MagicMock()
         freebusy_return.query.return_value = query_return
         freebusy.return_value = freebusy_return
+        date = str(datetime.utcnow())[0:10]
 
-        response = api_client.get_free_busy(data)
+        response = api_client.get_free_busy(data, date)
 
         freebusy_return.query.assert_called_once_with(body={
             'timeMax': mock.ANY,
