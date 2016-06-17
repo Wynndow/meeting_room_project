@@ -1,62 +1,56 @@
-<!doctype html>
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
-  <title>Rooms</title>
-</head>
-<body>
-  <section id="header">
-    <div>
-      <form action="/" method="get">
-        <div>
-          <label for="floor">
-            Floor:
-          </label>
-          <select name="floor">
-            <option value="all">All</option>
-            <option value="third">Third</option>
-            <option value="sixth">Sixth</option>
-            <option value="seventh">Seventh</option>
-          </select>
-        </div>
-        <div>
-          <label for="date">
-            Date:
-          </label>
-          <input type="date" name="date"/>
-          <input type="submit" value="Submit" />
-        </div>
-      </form>
-    </div>
-    <div class='room-name-container'>
-      <div class='room-name'>
-        Time
+{% extends "base.html" %}
+{% block page_content %}
+<section id="header">
+  <div>
+    <form action="/" method="get">
+      <div>
+        <label for="floor">
+          Floor:
+        </label>
+        <select name="floor">
+          <option value="all">All</option>
+          <option value="third">Third</option>
+          <option value="sixth">Sixth</option>
+          <option value="seventh">Seventh</option>
+        </select>
       </div>
-      {% for room in rooms %}
-      <div class='room-name'>
-        {{ room.resourceName }}
+      <div>
+        <label for="date">
+          Date:
+        </label>
+        <input type="date" name="date"/>
+        <input type="submit" value="Submit" />
       </div>
-      {% endfor %}
-    </div>
-  </section>
-  <div class='block-container'>
-    <div class='room-block-container'>
-      {% for time in times %}
-        <div class='hour'>
-          {{time}}:00
-        </div>
-      {% endfor %}
-    </div>
-      {% for room in rooms %}
-        <div class='room-block-container'>
-            {% for block in full_days.get(room.resourceEmail) %}
-              <div class='{{ block.status }}' style='height: {{ block.length }}px'>
-                {{ block.status }}
-                {{ block.times }}
-              </div>
-            {% endfor %}
-        </div>
-      {% endfor %}
+    </form>
   </div>
-</body>
-</html>
+  <div class='room-name-container'>
+    <div class='room-name'>
+      Time
+    </div>
+    {% for room in rooms %}
+    <div class='room-name'>
+      {{ room.resourceName }}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<div class='block-container'>
+  <div class='room-block-container'>
+    {% for time in times %}
+      <div class='hour'>
+        {{time}}:00
+      </div>
+    {% endfor %}
+  </div>
+    {% for room in rooms %}
+      <div class='room-block-container'>
+          {% for block in full_days.get(room.resourceEmail) %}
+            <div class='{{ block.status }}' style='height: {{ block.length }}px'>
+              {{ block.status }}
+              {{ block.times }}
+            </div>
+          {% endfor %}
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
