@@ -4,9 +4,16 @@ body {
   font-size: 0.8em;
   color: white;
   background-color: black;
-
+  margin-top: 0px;
 
 }
+
+#header {
+  position: fixed;
+  background: black;
+  border-bottom: 2px white solid;
+}
+
 .room-name {
   width: 67px;
   display: inline-block;
@@ -31,6 +38,10 @@ body {
   border: 5px solid #990000;
   border-radius: 5px;
   overflow:hidden;
+}
+
+.block-container {
+  padding-top: 7em;
 }
 
 .room-block-container {

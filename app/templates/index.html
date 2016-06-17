@@ -5,28 +5,40 @@
   <title>Rooms</title>
 </head>
 <body>
-  <div>
-    <form action="/" method="get">
-      <select name="floor">
-        <option value="all">All</option>
-        <option value="third">Third</option>
-        <option value="sixth">Sixth</option>
-        <option value="seventh">Seventh</option>
-      </select>
-      <input type="date" name="date"/>
-      <input type="submit" value="Submit" />
-    </form>
-  </div>
-  <div class='room-name-container'>
-    <div class='room-name'>
-      Time
+  <section id="header">
+    <div>
+      <form action="/" method="get">
+        <div>
+          <label for="floor">
+            Floor:
+          </label>
+          <select name="floor">
+            <option value="all">All</option>
+            <option value="third">Third</option>
+            <option value="sixth">Sixth</option>
+            <option value="seventh">Seventh</option>
+          </select>
+        </div>
+        <div>
+          <label for="date">
+            Date: 
+          </label>
+          <input type="date" name="date"/>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
     </div>
-    {% for room in rooms %}
-    <div class='room-name'>
-      {{ room.resourceName }}
+    <div class='room-name-container'>
+      <div class='room-name'>
+        Time
+      </div>
+      {% for room in rooms %}
+      <div class='room-name'>
+        {{ room.resourceName }}
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
+  </section>
   <div class='block-container'>
     <div class='room-block-container'>
       <div class='hour'>
