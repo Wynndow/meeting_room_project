@@ -26,31 +26,31 @@
   <div class='room-name-container'>
     <div class='room-name'>
       Time
-    </div>
-    {% for room in rooms %}
-    <div class='room-name'>
-      {{ room.resourceName }}
-    </div>
-    {% endfor %}
-  </div>
+    </div><!--
+  -->{% for room in rooms %}<!--
+    --><div class='room-name'><!--
+      -->{{ room.resourceName }}<!--
+    --></div><!--
+  -->{% endfor %}<!--
+ --></div>
 </section>
-<div class='block-container'>
-  <div class='room-block-container'>
+<div class='block-container'><!--
+--><div class='room-block-container'>
     {% for time in times %}
       <div class='hour'>
         {{time}}:00
       </div>
     {% endfor %}
-  </div>
-    {% for room in rooms %}
-      <div class='room-block-container'>
-          {% for block in full_days.get(room.resourceEmail) %}
+  </div><!--
+  -->{% for room in rooms %}<!--
+    --><div class='room-block-container'>
+        {% for block in full_days.get(room.resourceEmail) %}
             <div class='{{ block.status }}' style='height: {{ block.length }}px'>
               {{ block.status }}
               {{ block.times }}
             </div>
           {% endfor %}
-      </div>
-    {% endfor %}
-</div>
+      </div><!--
+    -->{% endfor %}<!--
+--></div>
 {% endblock %}
