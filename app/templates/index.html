@@ -27,18 +27,18 @@
     </div>
   </div>
   <div class='room-name-container'>
-    <div class='room-name'>
+    <div class='times'>
       Time
     </div><!--
   -->{% for room in rooms %}<!--
-    --><div class='room-name'><!--
+    --><div class='{{floor}}-width'><!--
       -->{{ room.resourceName }}<!--
     --></div><!--
   -->{% endfor %}<!--
  --></div>
 </section>
 <div class='block-container'><!--
---><div class='room-block-container'>
+--><div class='times top-align'>
     {% for time in times %}
       <div class='hour'>
         {{time}}:00
@@ -46,7 +46,7 @@
     {% endfor %}
   </div><!--
   -->{% for room in rooms %}<!--
-    --><div class='room-block-container'>
+  --><div class='{{floor}}-width top-align'>
         {% for block in full_days.get(room.resourceEmail) %}
             <div class='{{ block.status }}' style='height: {{ block.length }}px'>
               {{ block.status }}

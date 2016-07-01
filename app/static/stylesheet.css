@@ -17,11 +17,6 @@ body {
   display: inline-block;
 }
 
-.room-name {
-  width: 67px;
-  display: inline-block;
-}
-
 .room-name-container {
   width: 1420px;
   border-bottom: solid black 1px;
@@ -47,14 +42,37 @@ body {
   padding-top: 10.2em;
 }
 
-.room-block-container {
-  width: 67px;
-  display: inline-block;
-  vertical-align: top;
-}
-
 .hour {
   box-sizing: border-box;
   height: 60px;
   border-top: black solid 2px;
+}
+
+.all-width {
+  width: 71px;
+  display: inline-block;
+}
+
+.third-width {
+  width: 122px;
+  display: inline-block;
+}
+
+.sixth-width {
+  width: 449px;
+  display: inline-block;
+}
+
+.seventh-width {
+  width: 269px;
+  display: inline-block;
+}
+
+.times {
+  width: 71px;
+  display: inline-block;
+}
+
+.top-align {
+  vertical-align: top;
 }
