@@ -13,4 +13,4 @@ def index():
     full_days = day_maker.create_full_days(rooms, free_busy)
     times = number_padder.add_zero(24)
 
-    return render_template('index.html', rooms=rooms, full_days=full_days, times=times)
+    return render_template('index.html', rooms=rooms, full_days=full_days, times=times, date=date, floor=floor)
