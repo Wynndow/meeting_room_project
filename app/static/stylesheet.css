@@ -13,6 +13,10 @@ body {
   border-bottom: 2px black solid;
 }
 
+.header-contents {
+  display: inline-block;
+}
+
 .room-name {
   width: 67px;
   display: inline-block;
