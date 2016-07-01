@@ -1,3 +1,5 @@
 *.py[cod]
 .cache
 client_secret.json
+
+/venv
