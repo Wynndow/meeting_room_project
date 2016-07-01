@@ -6,7 +6,7 @@ from datetime import datetime
 
 @main.route('/')
 def index():
-    floor = request.args.get('floor', 'third')
+    floor = request.args.get('floor', 'all')
     date = request.args.get('date', str(datetime.utcnow())[0:10])
     rooms = api_client.get_room_list(floor)
     free_busy = api_client.get_free_busy(rooms, date).get('calendars')
