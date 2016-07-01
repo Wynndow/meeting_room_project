@@ -1,16 +1,16 @@
 body {
   min-width: 1420px;
   font-family: Tahoma;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
   margin-top: 0px;
 
 }
 
 #header {
   position: fixed;
-  background: black;
-  border-bottom: 2px white solid;
+  background: white;
+  border-bottom: 2px black solid;
 }
 
 .room-name {
@@ -40,7 +40,7 @@ body {
 }
 
 .block-container {
-  padding-top: 9em;
+  padding-top: 10.2em;
 }
 
 .room-block-container {
