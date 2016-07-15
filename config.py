@@ -13,7 +13,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    DELEGATED_ACCOUNT = os.environ['MRP_DELEGATED_ACCOUNT']
+    DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
 
 
 class ProductionConfig(Config):
