@@ -7,9 +7,8 @@ from datetime import datetime
 
 scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
           'https://www.googleapis.com/auth/calendar']
-
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    'client_secret.json', scopes=scopes).create_delegated(os.environ['MRP_DELEGATED_ACCOUNT'])
+    'client_secret.json', scopes=scopes).create_delegated(os.environ['MR_DELEGATED_ACCOUNT'])
 http = credentials.authorize(Http())
 directory = build('admin', 'directory_v1', http=http)
 calendar = build('calendar', 'v3', http=http)
