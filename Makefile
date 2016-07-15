@@ -2,7 +2,7 @@ SHELL := /bin/bash
 VIRTUALENV_ROOT := $(shell [ -z $$VIRTUAL_ENV ] && echo $$(pwd)/venv || echo $$VIRTUAL_ENV)
 
 run_app:
-	python manage.py runserver
+	python application.py runserver
 
 test: test_pep8 test_unit
 
