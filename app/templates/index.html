@@ -49,8 +49,8 @@
   --><div class='{{floor}}-width top-align'>
         {% for block in full_days.get(room.resourceEmail) %}
             <div class='{{ block.status }}' style='height: {{ block.length }}px'>
-              {{ block.status }}
-              {{ block.times }}
+              <div>{{ block.status }}</div>
+              <div>{{ block.times }}</div>
             </div>
           {% endfor %}
       </div><!--
