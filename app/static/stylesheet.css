@@ -10,7 +10,6 @@ body {
 #header {
   position: fixed;
   background: white;
-  border-bottom: 2px black solid;
 }
 
 .header-contents {
@@ -19,16 +18,16 @@ body {
 
 .room-name-container {
   width: 1420px;
-  border-bottom: solid black 1px;
 }
 
 .Free {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
   box-sizing: border-box;
   background-color: #77DD77;
-  border: 2px solid black;
+  border: 1px solid white;
   overflow:hidden;
   padding-left: 2px;
-  text-shadow: 1px 1px 1px white;
 }
 
 .Free:hover {
@@ -36,12 +35,13 @@ body {
 }
 
 .Busy {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
   box-sizing: border-box;
   background-color: #FF6961;
-  border: 2px solid black;
+  border: 1px solid white;
   overflow:hidden;
   padding-left: 2px;
-  text-shadow: 1px 1px 1px white;
 }
 
 .Busy:hover {
@@ -55,7 +55,7 @@ body {
 .hour {
   box-sizing: border-box;
   height: 60px;
-  border-top: black solid 2px;
+  border-top: black solid 1px;
 }
 
 .all-width {
