@@ -28,6 +28,7 @@ body {
   border: 2px solid black;
   overflow:hidden;
   padding-left: 2px;
+  text-shadow: 1px 1px 1px white;
 }
 
 .Free:hover {
@@ -40,6 +41,7 @@ body {
   border: 2px solid black;
   overflow:hidden;
   padding-left: 2px;
+  text-shadow: 1px 1px 1px white;
 }
 
 .Busy:hover {
