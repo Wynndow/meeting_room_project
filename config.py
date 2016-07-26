@@ -17,12 +17,11 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    pass
+    DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
 
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-
     'default': DevelopmentConfig
 }
