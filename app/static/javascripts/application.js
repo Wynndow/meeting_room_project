@@ -1,6 +1,7 @@
 $( document ).ready(function(){
 
-  $('body').scrollTop(475);
+  var place = $( '.hour:nth-child(7)' ).offset().top
+  $('body').scrollTop(place);
 
   $('.Free, .Busy').hover(
     function() {
