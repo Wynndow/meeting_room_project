@@ -16,7 +16,8 @@ calendar = build('calendar', 'v3', http=http)
 
 def get_room_list(floor):
     resources = _fetch_resources()
-    return _filter_rooms(resources, floor)
+    filtered = _filter_rooms(resources, floor)
+    return _neaten_room_names(filtered)
 
 
 def get_free_busy(room_list, date):
@@ -69,3 +70,9 @@ def _filter_rooms(resources, floor):
                 output.append(resource)
 
     return output
+
+
+def _neaten_room_names(rooms):
+    for room in rooms:
+        room['resourceName'] = room['resourceName'].replace('Meeting Room ', '')
+    return rooms

@@ -25,7 +25,8 @@ class TestApiClient():
         floor = 'third'
         rooms = api_client.get_room_list(floor)
         room_names = map(lambda room: room['resourceName'], rooms)
-        assert 'Meeting Room 305 (12)' in room_names
+        assert 'Meeting Room 305 (12)' not in room_names
+        assert '305 (12)' in room_names
 
     @mock.patch('app.lib.api_client.calendar.freebusy')
     def test_get_free_busy_calls_api_with_data(self, freebusy):
