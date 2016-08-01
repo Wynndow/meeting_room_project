@@ -28,8 +28,7 @@ def get_free_busy(room_list, date):
 
 
 def _set_times(date):
-    date = date.split('-')
-    today = datetime(int(date[0]), int(date[1]), int(date[2]))
+    today = datetime.strptime(date, '%Y-%m-%d')
     start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
     end = today.replace(hour=23, minute=59, second=59).isoformat() + 'Z'
     return {
