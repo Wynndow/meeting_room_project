@@ -8,6 +8,7 @@ body {
 }
 
 #header {
+  min-width: 1420px;
   position: fixed;
   background: white;
 }
@@ -85,4 +86,8 @@ body {
 
 .top-align {
   vertical-align: top;
+}
+
+.error-container {
+  text-align: center;
 }

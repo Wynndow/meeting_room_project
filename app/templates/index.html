@@ -1,49 +1,5 @@
 {% extends "base.html" %}
 {% block page_content %}
-<section id="header">
-  <div>
-    <form action="/" method="get" class="header-contents">
-      <div>
-        <label for="floor">
-          Floor:
-        </label>
-        <select name="floor" class="selectpicker">
-          <option {% if floor=="all" %}selected{% endif %} value="all">All</option>
-          <option {% if floor=="third" %}selected{% endif %} value="third">Third</option>
-          <option {% if floor=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
-          <option {% if floor=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
-        </select>
-      </div>
-      <div>
-        <label for="date">
-          Date:
-        </label>
-        <input type="date" name="date" value="{{ date }}"/>
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
-    <div class="header-contents" style="padding-left: 200px">
-      <h1>Meeting Room Availability</h1>
-    </div>
-    <div class="header-contents" style="margin-top: 20px; margin-bottom: 10px; padding-left:300px">
-      <section>
-        <div class="header-contents">
-          <h5>Status:</h5>
-        </div>
-        <div class="header-contents">
-          <h5><span id="header-status"></span></h5>
-        </div>
-      </section>
-      <section>
-        <div class="header-contents">
-          <h5>Time:</h5>
-        </div>
-        <div class="header-contents">
-          <h5><span id="header-time"></span></h5>
-        </div>
-      </section>
-    </div>
-  </div>
   <div class='room-name-container'>
     <div class='times'>
       Time
