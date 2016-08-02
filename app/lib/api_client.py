@@ -4,6 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from httplib2 import Http
 from apiclient.discovery import build
 from datetime import datetime
+from ..exceptions import InvalidUsage
 
 scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
           'https://www.googleapis.com/auth/calendar']
@@ -28,8 +29,11 @@ def get_free_busy(room_list, date):
 
 
 def _set_times(date):
-    date = date.split('-')
-    today = datetime(int(date[0]), int(date[1]), int(date[2]))
+    try:
+        today = datetime.strptime(date, '%Y-%m-%d')
+    except:
+        raise InvalidUsage("You've submitted an invalid date!")
+
     start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
     end = today.replace(hour=23, minute=59, second=59).isoformat() + 'Z'
     return {
@@ -63,6 +67,10 @@ def _filter_rooms(resources, floor):
         room_ids_by_floor = json.load(file)
 
     room_ids = room_ids_by_floor.get(floor)
+
+    if room_ids is None:
+        raise InvalidUsage("You've submitted an invalid floor!")
+
     output = []
     for room_id in room_ids:
         for resource in resources:
