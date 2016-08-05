@@ -31,7 +31,7 @@ def get_free_busy(room_list, date):
 def _set_times(date):
     try:
         today = datetime.strptime(date, '%Y-%m-%d')
-    except:
+    except ValueError:
         raise InvalidUsage("You've submitted an invalid date!")
 
     start = today.replace(hour=0, minute=0, second=0).isoformat() + 'Z'
