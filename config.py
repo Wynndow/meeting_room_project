@@ -6,6 +6,8 @@ class Config:
     def init_app(app):
         pass
 
+    DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -13,11 +15,10 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
 
 
 class ProductionConfig(Config):
-    DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
+    pass
 
 config = {
     'development': DevelopmentConfig,
