@@ -1,4 +1,3 @@
-import ast
 import os
 import json
 from flask import Flask
@@ -19,11 +18,3 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     return app
-
-
-def create_client_secret_json():
-    client_secret_file_path = os.path.join(os.path.dirname(__file__), '../client_secret.json')
-    client_secret_dict = ast.literal_eval(os.environ['MR_CLIENT_SECRET_JSON'])
-    with open(client_secret_file_path, 'w') as outfile:
-        json.dump(client_secret_dict, outfile, indent=4)
-        outfile.close()
