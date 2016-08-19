@@ -54,7 +54,7 @@ def _fetch_resources():
 
 
 def _filter_rooms(resources, floor):
-    with open('./app/lib/room_ids_by_floor.json') as file:
+    with open('./app/data/room_ids_by_floor.json') as file:
         room_ids_by_floor = json.load(file)
 
     room_ids = room_ids_by_floor.get(floor)
