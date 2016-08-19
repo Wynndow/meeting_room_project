@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-from app import create_app, create_client_secret_json
+from app import create_app
 import os
 from flask.ext.script import Manager
 
-create_client_secret_json()
 application = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(application)
 
