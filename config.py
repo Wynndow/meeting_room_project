@@ -1,4 +1,5 @@
 import os
+import ast
 
 
 class Config:
@@ -6,6 +7,7 @@ class Config:
     def init_app(app):
         pass
 
+    CLIENT_SECRET_DICT = ast.literal_eval(os.environ['MR_CLIENT_SECRET_JSON'])
     DELEGATED_ACCOUNT = os.environ['MR_DELEGATED_ACCOUNT']
 
 
