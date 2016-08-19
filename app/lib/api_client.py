@@ -1,15 +1,17 @@
 import os
 import json
+
 from oauth2client.service_account import ServiceAccountCredentials
 from httplib2 import Http
 from apiclient.discovery import build
 from datetime import datetime
 from ..exceptions import InvalidUsage
+from application import application
 
 scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
           'https://www.googleapis.com/auth/calendar']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    'client_secret.json', scopes=scopes).create_delegated(os.environ['MR_DELEGATED_ACCOUNT'])
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+    application.config['CLIENT_SECRET_DICT'], scopes=scopes).create_delegated(os.environ['MR_DELEGATED_ACCOUNT'])
 http = credentials.authorize(Http())
 directory = build('admin', 'directory_v1', http=http)
 calendar = build('calendar', 'v3', http=http)
