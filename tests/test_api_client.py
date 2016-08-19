@@ -28,14 +28,16 @@ class TestApiClient():
         assert 'Meeting Room 305 (12)' not in room_names
         assert '305 (12)' in room_names
 
-    @mock.patch('app.lib.api_client.calendar.freebusy')
-    def test_get_free_busy_calls_api_with_data(self, freebusy):
-
-        query_return = mock.MagicMock()
-        query_return.execute.return_value = None
+    @mock.patch("app.lib.api_client.current_app")
+    def test_get_free_busy_calls_api_with_data(self, current_app):
+        calendar = mock.MagicMock()
         freebusy_return = mock.MagicMock()
+        query_return = mock.MagicMock()
+
+        query_return.execute.return_value = None
         freebusy_return.query.return_value = query_return
-        freebusy.return_value = freebusy_return
+        calendar.freebusy.return_value = freebusy_return
+        current_app.config = {'CALENDAR': calendar}
         date = str(datetime.utcnow())[0:10]
 
         response = api_client.get_free_busy(data, date)

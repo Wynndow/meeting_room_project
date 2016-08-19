@@ -1,20 +1,7 @@
-import os
 import json
-
-from oauth2client.service_account import ServiceAccountCredentials
-from httplib2 import Http
-from apiclient.discovery import build
 from datetime import datetime
 from ..exceptions import InvalidUsage
-from application import application
-
-scopes = ['https://www.googleapis.com/auth/admin.directory.resource.calendar',
-          'https://www.googleapis.com/auth/calendar']
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-    application.config['CLIENT_SECRET_DICT'], scopes=scopes).create_delegated(os.environ['MR_DELEGATED_ACCOUNT'])
-http = credentials.authorize(Http())
-directory = build('admin', 'directory_v1', http=http)
-calendar = build('calendar', 'v3', http=http)
+from flask import current_app
 
 
 def get_room_list(floor):
@@ -27,6 +14,7 @@ def get_free_busy(room_list, date):
     times = _set_times(date)
     calendar_ids = _extract_calendar_ids(room_list)
     body = _build_free_busy_body(times, calendar_ids)
+    calendar = current_app.config['CALENDAR']
     return calendar.freebusy().query(body=body).execute()
 
 
@@ -61,6 +49,7 @@ def _extract_calendar_ids(room_list):
 
 
 def _fetch_resources():
+    directory = current_app.config['DIRECTORY']
     return directory.resources().calendars().list(customer='my_customer').execute().get('items', [])
 
 
