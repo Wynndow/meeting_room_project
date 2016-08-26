@@ -1,34 +1,61 @@
-def create_full_day_json(data):
+from .booking import Booking
+from datetime import datetime, timedelta
+
+def create_booking_object_list(data):
     output = []
-    if len(data) == 0:
-        return [{'times': '00:00 to 00:00', 'length': 1440, 'status': 'Free'}]
+    if not data:
+        return output
+
     for booking in data:
-        if len(output) == 0:
+        if not output:
             _add_first_free_and_busy_blocks(booking, output)
             continue
 
-        length = _time_in_minutes(booking.get('start')) - _time_in_minutes(output[-1].get('times')[-5:])
-        if length == 0:
-            length, times = _length_and_times_for_busy_block(booking)
-            _add_block_to_day(output, times, length, 'Busy')
+        last_booking = output[-1]
+
+        times = {
+            'start': datetime.strptime(booking['start'][:-6], '%Y-%m-%dT%H:%M:%S'),
+            'end': datetime.strptime(booking['end'][:-6], '%Y-%m-%dT%H:%M:%S')
+        }
+        output.append(Booking(times, 'Busy'))
+        current_booking = output[-1]
+
+        if last_booking.end == current_booking.start:
             continue
 
-        times = '{} to {}'.format(output[-1].get('times')[-5:], booking.get('start')[11:16])
-        _add_block_to_day(output, times, length, 'Free')
+        times = {
+            'start': last_booking.end,
+            'end': current_booking.start
+        }
+        output.insert(-1, Booking(times, 'Free'))
 
-        length, times = _length_and_times_for_busy_block(booking)
-        _add_block_to_day(output, times, length, 'Busy')
-
-    if not output[-1].get('times')[-5:] == '00:00' and not len(data) == 0:
-        _add_last_block_if_end_of_day_is_free(output)
-
+    if output[-1].end.hour != 0:
+        times = {
+            'start': output[-1].end,
+            'end': (output[-1].end + timedelta(days=1)).replace(hour=0, minute=0, second=0)
+        }
+        output.append(Booking(times, 'Free'))
+        
     return output
+
+# def parse_api_data_to_objects(data):
+#     output = [ Booking(busy_data) for busy_data in data ]
+#     return output
+#
+# def fill_in_free_data(busy_bookings):
+#     if not busy_bookings:
+#         all_day = {
+#             'start': '',
+#             'end': ''
+#         }
+#         return [Booking()]
+
 
 
 def create_full_days(rooms, free_busy):
     output = {}
     for room in rooms:
-        output[room.get('resourceEmail')] = create_full_day_json(free_busy.get(room.get('resourceEmail')).get('busy'))
+        output[room.get('resourceEmail')] = create_booking_object_list(free_busy.get(room.get('resourceEmail')).get('busy'))
     return output
 
 
@@ -40,14 +67,20 @@ def _add_last_block_if_end_of_day_is_free(output):
 
 def _add_first_free_and_busy_blocks(booking, output):
 
-    length = _time_in_minutes(booking.get('start'))
-    times = '00:00 to {}'.format(booking.get('start')[11:16])
-    _add_block_to_day(output, times, length, 'Free')
+    end = datetime.strptime(booking['start'][:-6], '%Y-%m-%dT%H:%M:%S')
+    start = end.replace(hour=0, minute=0, second=0)
+    times = {
+        'start': start,
+        'end': end
+    }
+    output.append(Booking(times, 'Free'))
 
-    length = _time_in_minutes(booking.get('end')) - length
-    times = '{} to {}'.format(booking.get('start')[11:16], booking.get('end')[11:16])
-    _add_block_to_day(output, times, length, 'Busy')
+    times = {
+        'start': datetime.strptime(booking['start'][:-6], '%Y-%m-%dT%H:%M:%S'),
+        'end': datetime.strptime(booking['end'][:-6], '%Y-%m-%dT%H:%M:%S')
+    }
 
+    output.append(Booking(times, 'Busy'))
 
 def _length_and_times_for_busy_block(booking):
     length = _time_in_minutes(booking.get('end')) - _time_in_minutes(booking.get('start'))

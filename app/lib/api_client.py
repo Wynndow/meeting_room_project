@@ -17,10 +17,7 @@ def _fetch_resources():
 
 
 def _filter_rooms(resources, floor):
-    with open('./app/data/room_ids_by_floor.json') as file:
-        room_ids_by_floor = json.load(file)
-
-    room_ids = room_ids_by_floor.get(floor)
+    room_ids = ROOM_IDS.get(floor)
 
     if room_ids is None:
         raise InvalidUsage("You've submitted an invalid floor!")
@@ -38,3 +35,10 @@ def _neaten_room_names(rooms):
     for room in rooms:
         room['resourceName'] = room['resourceName'].replace('Meeting Room ', '')
     return rooms
+
+
+def _load_room_ids():
+    with open('./app/data/room_ids_by_floor.json') as file:
+        return json.load(file)
+
+ROOM_IDS = _load_room_ids()
