@@ -1,5 +1,4 @@
 import pytest
-import random
 from app.lib import number_padder
 
 

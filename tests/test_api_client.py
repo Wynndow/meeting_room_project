@@ -23,30 +23,7 @@ class TestApiClient():
     def test_get_room_list(self, _fetch_resources):
         _fetch_resources.return_value = data
         floor = 'third'
-        rooms = api_client.get_room_list(floor)
+        rooms = api_client.get_room_list(floor).rooms
         room_names = map(lambda room: room['resourceName'], rooms)
         assert 'Meeting Room 305 (12)' not in room_names
         assert '305 (12)' in room_names
-
-    @mock.patch("app.lib.api_client.current_app")
-    def test_get_free_busy_calls_api_with_data(self, current_app):
-        calendar = mock.MagicMock()
-        freebusy_return = mock.MagicMock()
-        query_return = mock.MagicMock()
-
-        query_return.execute.return_value = None
-        freebusy_return.query.return_value = query_return
-        calendar.freebusy.return_value = freebusy_return
-        current_app.config = {'CALENDAR': calendar}
-        date = str(datetime.utcnow())[0:10]
-
-        response = api_client.get_free_busy(data, date)
-
-        freebusy_return.query.assert_called_once_with(body={
-            'timeMax': mock.ANY,
-            'timeZone': 'GMT+01:00',
-            'timeMin': mock.ANY,
-            'items': [{
-                'id': u'digital.cabinet-office.gov.uk_2d393731373339322d363531@resource.calendar.google.com'
-            }]
-        })
