@@ -1,5 +1,6 @@
 from flask import current_app
 from datetime import datetime
+from dateutil.tz import tzlocal
 
 
 class RoomList():
@@ -37,6 +38,6 @@ class RoomList():
         return {
             "timeMin": times['start'],
             "timeMax": times['end'],
-            "timeZone": 'GMT+01:00',
+            "timeZone": 'GMT+0{}:00'.format('1' if datetime.now(tzlocal()).tzname() == 'BST' else '0'),
             "items": calendar_ids
         }
