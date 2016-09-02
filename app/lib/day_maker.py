@@ -1,70 +1,101 @@
-def create_full_day_json(data):
-    output = []
-    if len(data) == 0:
-        return [{'times': '00:00 to 00:00', 'length': 1440, 'status': 'Free'}]
-    for booking in data:
-        if len(output) == 0:
-            _add_first_free_and_busy_blocks(booking, output)
-            continue
+from .booking import Booking
+from datetime import datetime, timedelta
 
-        length = _time_in_minutes(booking.get('start')) - _time_in_minutes(output[-1].get('times')[-5:])
-        if length == 0:
-            length, times = _length_and_times_for_busy_block(booking)
-            _add_block_to_day(output, times, length, 'Busy')
-            continue
-
-        times = '{} to {}'.format(output[-1].get('times')[-5:], booking.get('start')[11:16])
-        _add_block_to_day(output, times, length, 'Free')
-
-        length, times = _length_and_times_for_busy_block(booking)
-        _add_block_to_day(output, times, length, 'Busy')
-
-    if not output[-1].get('times')[-5:] == '00:00' and not len(data) == 0:
-        _add_last_block_if_end_of_day_is_free(output)
-
-    return output
+DATE_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
+FREE_STATUS = 'Free'
+BUSY_STATUS = 'Busy'
+EXTRA_STRING_CHARACTERS = -6
 
 
 def create_full_days(rooms, free_busy):
     output = {}
     for room in rooms:
-        output[room.get('resourceEmail')] = create_full_day_json(free_busy.get(room.get('resourceEmail')).get('busy'))
+        booking_object_list = _create_booking_object_list(free_busy.get(room.get('resourceEmail')).get('busy'))
+        formatted_list = [{'times': b.times(), 'length': b.length(), 'status': b.status} for b in booking_object_list]
+        output[room.get('resourceEmail')] = formatted_list
     return output
 
 
-def _add_last_block_if_end_of_day_is_free(output):
-    length = 1440 - _time_in_minutes(output[-1].get('times')[-5:])
-    times = '{} to {}'.format(output[-1].get('times')[-5:], '00:00')
-    _add_block_to_day(output, times, length, 'Free')
+def _create_booking_object_list(bookings):
+    output = []
+    if not bookings:
+        return [_create_full_day_free_booking()]
+
+    for booking in bookings:
+        if not output:
+            _add_first_free_and_busy_bookings(booking, output)
+            continue
+
+        last_booking = output[-1]
+
+        _add_current_booking_to_output(booking, output)
+
+        current_booking = output[-1]
+
+        if _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
+            continue
+        else:
+            _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output)
+
+    if _bookings_are_not_till_midnight(output):
+        _add_free_time_between_last_meeting_and_midnight(output)
+
+    return output
 
 
-def _add_first_free_and_busy_blocks(booking, output):
+def _add_first_free_and_busy_bookings(booking, output):
+    end = datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+    start = end.replace(hour=0, minute=0, second=0)
+    times = {
+        'start': start,
+        'end': end
+    }
+    output.append(Booking(times, FREE_STATUS))
 
-    length = _time_in_minutes(booking.get('start'))
-    times = '00:00 to {}'.format(booking.get('start')[11:16])
-    _add_block_to_day(output, times, length, 'Free')
+    times = {
+        'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
+        'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+    }
 
-    length = _time_in_minutes(booking.get('end')) - length
-    times = '{} to {}'.format(booking.get('start')[11:16], booking.get('end')[11:16])
-    _add_block_to_day(output, times, length, 'Busy')
-
-
-def _length_and_times_for_busy_block(booking):
-    length = _time_in_minutes(booking.get('end')) - _time_in_minutes(booking.get('start'))
-    times = '{} to {}'.format(booking.get('start')[11:16], booking.get('end')[11:16])
-    return length, times
-
-
-def _add_block_to_day(output, times, length, status):
-    output.append({'times': times, 'length': length, 'status': status})
+    output.append(Booking(times, BUSY_STATUS))
 
 
-def _time_in_minutes(time_string):
-    if len(time_string) > 5:
-        components = time_string[11:16].split(':')
-    else:
-        components = time_string.split(':')
+def _create_full_day_free_booking():
+    times = {
+        'start': datetime.now().replace(hour=0, minute=0, second=0),
+        'end': (datetime.now() + timedelta(days=1)).replace(hour=0, minute=0, second=0)
+    }
+    return Booking(times, FREE_STATUS)
 
-    int_components = map(lambda time_comp: int(time_comp), components)
-    int_components[0] = int_components[0] * 60
-    return sum(int_components)
+
+def _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
+    return last_booking.end == current_booking.start
+
+
+def _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output):
+    times = {
+        'start': last_booking.end,
+        'end': current_booking.start
+    }
+    output.insert(-1, Booking(times, FREE_STATUS))
+
+
+def _add_current_booking_to_output(booking, output):
+    times = {
+        'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
+        'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+    }
+
+    output.append(Booking(times, BUSY_STATUS))
+
+
+def _bookings_are_not_till_midnight(output):
+    return output[-1].end.hour != 0
+
+
+def _add_free_time_between_last_meeting_and_midnight(output):
+    times = {
+        'start': output[-1].end,
+        'end': (output[-1].end + timedelta(days=1)).replace(hour=0, minute=0, second=0)
+    }
+    output.append(Booking(times, FREE_STATUS))
