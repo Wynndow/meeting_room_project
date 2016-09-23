@@ -1,16 +1,37 @@
 body {
-  min-width: 1420px;
   font-family: Tahoma;
   color: black;
   background-color: white;
-  margin-top: 0px;
-
 }
 
 #header {
-  min-width: 1420px;
+  width: 100vw;
   position: fixed;
   background: white;
+}
+
+#date-floor-div {
+  width: 20vw
+}
+
+#page-title-div {
+  width: 60vw;
+  text-align: center;
+
+}
+
+#status-div {
+  width: 19vw
+}
+
+@media (max-width: 900px) {
+  #status-div {
+    display: none;
+  }
+}
+
+h1 {
+  font-size: 2.5vw;
 }
 
 .header-contents {
@@ -18,12 +39,12 @@ body {
 }
 
 .room-name-container {
-  width: 1420px;
+  width: 100vw;
 }
 
 .Free {
   font-family: "Courier New", Courier, monospace;
-  font-size: 12px;
+  font-size: 0.75vw;
   box-sizing: border-box;
   background-color: #77DD77;
   border: 1px solid white;
@@ -37,7 +58,7 @@ body {
 
 .Busy {
   font-family: "Courier New", Courier, monospace;
-  font-size: 12px;
+  font-size: 0.75vw;
   box-sizing: border-box;
   background-color: #FF6961;
   border: 1px solid white;
@@ -50,37 +71,49 @@ body {
 }
 
 .block-container {
-  padding-top: 10.2em;
+  padding-top: 17vh;
 }
 
 .hour {
+  font-size: 1.5vw;
   box-sizing: border-box;
   height: 60px;
   border-top: black solid 1px;
 }
 
 .all-width {
-  width: 71px;
+  width: 5vw;
   display: inline-block;
 }
 
 .third-width {
-  width: 122px;
+  width: 8.63vw;
   display: inline-block;
 }
 
 .sixth-width {
-  width: 449px;
+  width: 31.66vw;
   display: inline-block;
 }
 
 .seventh-width {
-  width: 269px;
+  width: 19vw;
   display: inline-block;
 }
 
+@media (max-width: 700px) {
+  .sideways-text {
+    transform: rotate(90deg);
+    /*transform-origin: left top 0;*/
+    white-space: nowrap;
+    overflow: hidden;
+    height: 5vh;
+    text-align: center;
+  }
+}
+
 .times {
-  width: 71px;
+  width: 5vw;
   display: inline-block;
 }
 

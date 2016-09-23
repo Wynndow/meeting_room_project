@@ -12,7 +12,8 @@
 {% block content %}
 <section id="header">
   <div>
-    <form action="/" method="get" class="header-contents">
+    <div class="header-contents" id="date-floor-div">
+      <form action="/" method="get" class="header-contents">
       <div>
         <label for="floor">
           Floor:
@@ -32,10 +33,11 @@
         <input type="submit" value="Submit" />
       </div>
     </form>
-    <div class="header-contents" style="padding-left: 200px">
+    </div>
+    <div class="header-contents" id="page-title-div">
       <h1>Meeting Room Availability</h1>
     </div>
-    <div class="header-contents" style="margin-top: 20px; margin-bottom: 10px; padding-left:300px">
+    <div class="header-contents" id="status-div">
       <section>
         <div class="header-contents">
           <h5>Status:</h5>

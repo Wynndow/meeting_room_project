@@ -5,13 +5,13 @@
       Time
     </div><!--
   -->{% for room in rooms %}<!--
-  --><div class='{{floor}}-width top-align'><!--
+  --><div class='sideways-text {{floor}}-width top-align'><!--
       -->{{ room.resourceName }}<!--
     --></div><!--
   -->{% endfor %}<!--
  --></div>
 </section>
-<div class='block-container'><!--
+<section class='block-container'><!--
 --><div class='times top-align'>
     {% for time in times %}
       <div class='hour'>
@@ -29,5 +29,5 @@
           {% endfor %}
       </div><!--
     -->{% endfor %}<!--
---></div>
+--></section>
 {% endblock %}
