@@ -23,41 +23,46 @@ def _create_booking_object_list(bookings):
 
     for booking in bookings:
         if not output:
-            _add_first_free_and_busy_bookings(booking, output)
+            free_booking, busy_booking = _create_first_free_and_busy_bookings(booking)
+            output.append(free_booking)
+            output.append(busy_booking)
             continue
 
         last_booking = output[-1]
 
-        _add_current_booking_to_output(booking, output)
+        current_booking = create_current_booking(booking)
+        output.append(current_booking)
 
-        current_booking = output[-1]
-
-        if _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
+        if current_booking.is_right_after_(last_booking):
             continue
         else:
-            _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output)
+            between_bookings = _create_free_time_between_this_booking_and_the_previous(current_booking, last_booking)
+            output.insert(-1, between_bookings)
 
     if _bookings_are_not_till_midnight(output):
-        _add_free_time_between_last_meeting_and_midnight(output)
+        last_free_booking = _create_free_time_between_last_meeting_and_midnight(output)
+        output.append(last_free_booking)
 
     return output
 
 
-def _add_first_free_and_busy_bookings(booking, output):
+def _create_first_free_and_busy_bookings(booking):
     end = datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
     start = end.replace(hour=0, minute=0, second=0)
     times = {
         'start': start,
         'end': end
     }
-    output.append(Booking(times, FREE_STATUS))
+    free_booking = Booking(times, FREE_STATUS)
 
     times = {
         'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
         'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
     }
 
-    output.append(Booking(times, BUSY_STATUS))
+    busy_booking = Booking(times, BUSY_STATUS)
+
+    return free_booking, busy_booking
 
 
 def _create_full_day_free_booking():
@@ -68,34 +73,30 @@ def _create_full_day_free_booking():
     return Booking(times, FREE_STATUS)
 
 
-def _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
-    return last_booking.end == current_booking.start
-
-
-def _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output):
+def _create_free_time_between_this_booking_and_the_previous(current_booking, last_booking):
     times = {
         'start': last_booking.end,
         'end': current_booking.start
     }
-    output.insert(-1, Booking(times, FREE_STATUS))
+    return Booking(times, FREE_STATUS)
 
 
-def _add_current_booking_to_output(booking, output):
+def create_current_booking(booking):
     times = {
         'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
         'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
     }
 
-    output.append(Booking(times, BUSY_STATUS))
+    return Booking(times, BUSY_STATUS)
 
 
 def _bookings_are_not_till_midnight(output):
     return output[-1].end.hour != 0
 
 
-def _add_free_time_between_last_meeting_and_midnight(output):
+def _create_free_time_between_last_meeting_and_midnight(output):
     times = {
         'start': output[-1].end,
         'end': (output[-1].end + timedelta(days=1)).replace(hour=0, minute=0, second=0)
     }
-    output.append(Booking(times, FREE_STATUS))
+    return Booking(times, FREE_STATUS)
