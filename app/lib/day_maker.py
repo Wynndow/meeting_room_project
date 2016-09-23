@@ -32,7 +32,7 @@ def _create_booking_object_list(bookings):
 
         current_booking = output[-1]
 
-        if _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
+        if current_booking.is_right_after_(last_booking):
             continue
         else:
             _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output)
@@ -66,10 +66,6 @@ def _create_full_day_free_booking():
         'end': (datetime.now() + timedelta(days=1)).replace(hour=0, minute=0, second=0)
     }
     return Booking(times, FREE_STATUS)
-
-
-def _current_and_last_bookings_are_back_to_back(current_booking, last_booking):
-    return last_booking.end == current_booking.start
 
 
 def _add_free_time_between_this_booking_and_the_previous(current_booking, last_booking, output):

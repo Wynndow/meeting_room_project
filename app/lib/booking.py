@@ -13,3 +13,6 @@ class Booking():
     def length(self):
         seconds = (self.end - self.start).total_seconds()
         return int(seconds / 60)
+
+    def is_right_after_(self, booking):
+        return self.start == booking.end
