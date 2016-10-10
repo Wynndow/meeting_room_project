@@ -1,0 +1,5 @@
+---
+applications:
+- name: meeting-rooms
+  memory: 512M
+  buildpack: python_buildpack
