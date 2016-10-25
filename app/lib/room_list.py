@@ -38,6 +38,6 @@ class RoomList():
         return {
             "timeMin": times['start'],
             "timeMax": times['end'],
-            "timeZone": 'GMT+01:00',
+            "timeZone": 'UTC',
             "items": calendar_ids
         }
