@@ -31,6 +31,8 @@ class DevelopmentConfig(Config):
     MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
     MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
     ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
+    AUTH_REQUIRED = True
+    AUTH_TOKEN = os.environ.get('MR_AUTH_TOKEN')
 
 
 class TestingConfig(Config):
@@ -44,7 +46,8 @@ class ProductionConfig(Config):
     MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
     MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
     ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
-
+    AUTH_REQUIRED = True
+    AUTH_TOKEN = os.environ.get('MR_AUTH_TOKEN')
 
 config = {
     'development': DevelopmentConfig,
