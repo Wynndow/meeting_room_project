@@ -1,4 +1,5 @@
 from .booking import Booking
+from .timezone_converter import TimeZoneConverter
 from datetime import datetime, timedelta
 
 DATE_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
@@ -21,6 +22,8 @@ def _create_booking_object_list(bookings):
     if not bookings:
         return [_create_full_day_free_booking()]
 
+    _convert_booking_times_to_local(bookings)
+
     for booking in bookings:
         if not output:
             free_booking, busy_booking = _create_first_free_and_busy_bookings(booking)
@@ -30,7 +33,7 @@ def _create_booking_object_list(bookings):
 
         last_booking = output[-1]
 
-        current_booking = create_current_booking(booking)
+        current_booking = _create_current_booking(booking)
         output.append(current_booking)
 
         if current_booking.is_right_after_(last_booking):
@@ -47,7 +50,7 @@ def _create_booking_object_list(bookings):
 
 
 def _create_first_free_and_busy_bookings(booking):
-    end = datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+    end = datetime.strptime(booking['start'], DATE_FORMAT_STRING)
     start = end.replace(hour=0, minute=0, second=0)
     times = {
         'start': start,
@@ -56,8 +59,8 @@ def _create_first_free_and_busy_bookings(booking):
     free_booking = Booking(times, FREE_STATUS)
 
     times = {
-        'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
-        'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+        'start': datetime.strptime(booking['start'], DATE_FORMAT_STRING),
+        'end': datetime.strptime(booking['end'], DATE_FORMAT_STRING)
     }
 
     busy_booking = Booking(times, BUSY_STATUS)
@@ -81,10 +84,10 @@ def _create_free_time_between_this_booking_and_the_previous(current_booking, las
     return Booking(times, FREE_STATUS)
 
 
-def create_current_booking(booking):
+def _create_current_booking(booking):
     times = {
-        'start': datetime.strptime(booking['start'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING),
-        'end': datetime.strptime(booking['end'][:EXTRA_STRING_CHARACTERS], DATE_FORMAT_STRING)
+        'start': datetime.strptime(booking['start'], DATE_FORMAT_STRING),
+        'end': datetime.strptime(booking['end'], DATE_FORMAT_STRING)
     }
 
     return Booking(times, BUSY_STATUS)
@@ -100,3 +103,9 @@ def _create_free_time_between_last_meeting_and_midnight(output):
         'end': (output[-1].end + timedelta(days=1)).replace(hour=0, minute=0, second=0)
     }
     return Booking(times, FREE_STATUS)
+
+
+def _convert_booking_times_to_local(bookings):
+    for booking in bookings:
+        booking['start'] = TimeZoneConverter.utc_to_london(booking['start'])
+        booking['end'] = TimeZoneConverter.utc_to_london(booking['end'])
