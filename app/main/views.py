@@ -1,10 +1,11 @@
 from flask import render_template, request
 from . import main
 from ..lib import api_client, day_maker, number_padder
+from ..lib.email_reminder import EmailReminder
 from datetime import datetime
 
 
-@main.route('/')
+@main.route('/', methods=['GET'])
 def index():
     floor = request.args.get('floor', 'all')
     date = request.args.get('date', str(datetime.utcnow())[0:10])
@@ -19,3 +20,10 @@ def index():
                            times=times,
                            date=date,
                            floor=floor)
+
+
+@main.route('/send_emails', methods=['POST'])
+def send_emails():
+    email_reminder = EmailReminder()
+    email_reminder.send_reminders()
+    return 'Nice', 204

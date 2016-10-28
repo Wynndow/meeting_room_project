@@ -1,0 +1,21 @@
+<p>Hello,</p>
+
+<p>Your room bookings for tomorrow are:</p>
+
+<ul>
+  {% for event in events %}
+    <li>
+      Room: {{ event.location }} <br>
+      Start: {{ event.start }} <br>
+      End {{ event.end }} <br>
+    </li>
+  {% endfor %}
+</ul>
+
+<p>If you no longer require the room, please think about unbooking them.</p>
+
+<p>Thanks!</p>
+
+<p>Love from your friendly meeting room app.</p>
+
+<p>x</p>

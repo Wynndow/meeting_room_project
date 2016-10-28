@@ -1,5 +1,6 @@
 from app.lib.timezone_converter import TimeZoneConverter
 
+
 class TestTimeZoneConverter():
     def test_it_converts_utc_times_to_london_times_out_of_BST(self):
         google_api_utc_time_string = u'2016-01-01T09:30:00Z'

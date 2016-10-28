@@ -26,18 +26,29 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    MAIL_PORT = os.environ.get('MR_EMAIL_PORT')
+    MAIL_SERVER = os.environ.get('MR_MAIL_SERVER')
+    MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
+    ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
 
 
 class TestingConfig(Config):
     TESTING = True
+    TEST_MAIL_ADDRESS = os.environ.get('MR_TEST_EMAIL_ADDRESS')
 
 
 class ProductionConfig(Config):
-    pass
+    MAIL_PORT = os.environ.get('MR_EMAIL_PORT')
+    MAIL_SERVER = os.environ.get('MR_MAIL_SERVER')
+    MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
+    ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
+
 
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
     'default': DevelopmentConfig
-}
+    }
