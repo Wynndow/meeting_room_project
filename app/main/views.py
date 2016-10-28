@@ -1,7 +1,6 @@
 from flask import render_template, request
 from . import main
 from ..lib import api_client, day_maker, number_padder
-from ..lib.email_reminder import EmailReminder
 from datetime import datetime
 
 
@@ -20,10 +19,3 @@ def index():
                            times=times,
                            date=date,
                            floor=floor)
-
-
-@main.route('/send_emails', methods=['POST'])
-def send_emails():
-    email_reminder = EmailReminder()
-    email_reminder.send_reminders()
-    return 'Nice', 204
