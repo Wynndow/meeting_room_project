@@ -1,0 +1,18 @@
+Hello,
+
+Your meetings for tomorrow are:
+
+{% for event in events %}
+  Room: {{ event.location }}
+  Start: {{ event.start }}
+  End {{ event.end }}
+
+{% endfor %}
+
+If you no longer require the room, please think about unbooking them.
+
+Thanks!
+
+Love from your friendly meeting room app.
+
+x
