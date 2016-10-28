@@ -1,6 +1,6 @@
 from .booking import Booking
+from .timezone_converter import TimeZoneConverter
 from datetime import datetime, timedelta
-from dateutil import tz
 
 DATE_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S'
 FREE_STATUS = 'Free'
@@ -104,16 +104,8 @@ def _create_free_time_between_last_meeting_and_midnight(output):
     }
     return Booking(times, FREE_STATUS)
 
+
 def _convert_booking_times_to_local(bookings):
     for booking in bookings:
-        booking['start'] = convert_time(booking['start'])
-        booking['end'] = convert_time(booking['end'])
-
-
-def convert_time(time):
-    from_zone = tz.gettz('UTC')
-    to_zone = tz.gettz('Europe/London')
-    time_object = datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ')
-    time_object = time_object.replace(tzinfo=from_zone)
-    converted_time_object = time_object.astimezone(to_zone)
-    return converted_time_object.strftime('%Y-%m-%dT%H:%M:%S')
+        booking['start'] = TimeZoneConverter.utc_to_london(booking['start'])
+        booking['end'] = TimeZoneConverter.utc_to_london(booking['end'])
