@@ -95,7 +95,6 @@ class EmailReminder():
                 print('A wild error appeared! $$$ {}'.format(e))
                 break
 
-        print('Emails are sent, Captain.')
         smtp_server.quit()
 
     def _create_smtp_server(self):
