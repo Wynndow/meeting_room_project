@@ -70,7 +70,7 @@ class EmailReminder():
             receiver = current_app.config['TEST_MAIL_ADDRESS'] if current_app.config.get('TESTING') \
                 else current_app.config['ADMIN_EMAIL']
             msg = MIMEMultipart('alternative')
-            msg['Subject'] = 'Your daily meeting room bookings digest'
+            msg['Subject'] = 'Your meeting room booking{} tomorrow'.format('s' if len(events) > 1 else '')
             msg['From'] = sender
             msg['To'] = receiver
 
