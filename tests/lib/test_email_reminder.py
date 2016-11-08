@@ -94,8 +94,7 @@ class TestEmailReminder():
         ]
 
         message = server_mock.mock_calls[-2][1][2]
-
-        assert """Content-Type: text/html; charset="us-ascii"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\n\n<p>Hello,</p>\n\n<p>Your room bookings for tomorrow are:</p>\n\n<ul>\n  \n    <li>\n      Room: None <br>\n      Start: 14:30 <br>\n      End 16:30 <br>\n    </li>\n  \n</ul>\n\n<p>If you no longer require the room, please think about unbooking them.</p>\n\n<p>Thanks!</p>\n\n<p>Love from your friendly meeting room app.</p>\n\n<p>x</p>\n""" in message  # NOQA
+        assert """Content-Type: text/html; charset="us-ascii"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\n\n<p>Hello,</p>\n\n<p>Your meeting room bookings for tomorrow are:</p>\n\n\n  <ul>\n    <li>Room: None</li>\n    <li>Start: 14:30</li>\n    <li>End 16:30</li>\n  </ul>\n\n\n<p>\n  <strong>Delete your room booking if you don\'t need it</strong><br>\n  If you don\'t need the room booking anymore, please delete it so someone else can use the room.\n</p>\n<p>\n  You can delete a room booking in a series without affecting your future bookings.\n</p>\n<p>\n  Read how to delete a room booking using Google Calendar:<br>\n  <a href="https://support.google.com/calendar/answer/37113?hl=en&ref_topic=3417926" taget="_blank">https://support.google.com/calendar/answer/37113?hl=en&ref_topic=3417926</a>\n</p>\n<p>\n  <strong>Think about using a smaller room</strong><br>\n  If you\'ve got fewer people coming to the meeting than you first thought, it would be great if you could try moving to a smaller room.\n</p>\n\n<p>\n  Thanks,<br>\n  Your friendly meeting room app\n</p>""" in message  # NOQA
 
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
     @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')

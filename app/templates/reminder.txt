@@ -1,18 +1,28 @@
 Hello,
 
-Your meetings for tomorrow are:
+Your meeting room bookings for tomorrow are:
 
 {% for event in events %}
   Room: {{ event.location }}
   Start: {{ event.start }}
   End {{ event.end }}
-
 {% endfor %}
 
-If you no longer require the room, please think about unbooking them.
+Delete your room booking if you don't need it
+---------------------------------------------
 
-Thanks!
+If you don't need the room booking anymore, please delete it so someone else can use the room.
 
-Love from your friendly meeting room app.
+You can delete a room booking in a series without affecting your future bookings.
 
-x
+Read how to delete a room booking using Google Calendar:
+https://support.google.com/calendar/answer/37113?hl=en&ref_topic=3417926
+
+
+Think about using a smaller room
+--------------------------------
+
+If you've got fewer people coming to the meeting than you first thought, it would be great if you could try moving to a smaller room.
+
+Thanks,
+Your friendly meeting room app
