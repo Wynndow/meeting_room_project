@@ -23,9 +23,6 @@ class Config:
 
     DIRECTORY, CALENDAR = create_credentials()
 
-
-class DevelopmentConfig(Config):
-    DEBUG = True
     MAIL_PORT = os.environ.get('MR_EMAIL_PORT')
     MAIL_SERVER = os.environ.get('MR_MAIL_SERVER')
     MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
@@ -33,6 +30,10 @@ class DevelopmentConfig(Config):
     ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
     AUTH_REQUIRED = True
     AUTH_TOKEN = os.environ.get('MR_AUTH_TOKEN')
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
 
 
 class TestingConfig(Config):
@@ -41,13 +42,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    MAIL_PORT = os.environ.get('MR_EMAIL_PORT')
-    MAIL_SERVER = os.environ.get('MR_MAIL_SERVER')
-    MAIL_USERNAME = os.environ.get('MR_AWS_SMTP_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
-    ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
-    AUTH_REQUIRED = True
-    AUTH_TOKEN = os.environ.get('MR_AUTH_TOKEN')
+    pass
 
 config = {
     'development': DevelopmentConfig,
