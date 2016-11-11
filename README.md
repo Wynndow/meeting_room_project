@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Wynndow/meeting_room_project.svg?branch=master)](https://travis-ci.org/Wynndow/meeting_room_project)
 # Meeting Rooms 20% Project
 
 A web app to allow easy viewing of the free/busy status of the GDS meeting rooms within Aviation House. It uses the Google calendar API to retrieve the status of all meeting rooms on the 3rd, 6th and 7th floors and displays them in an easy to read manor. The status of rooms can be filtered by floor as well as date.
