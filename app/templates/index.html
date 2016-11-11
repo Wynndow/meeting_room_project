@@ -1,16 +1,5 @@
 {% extends "base.html" %}
 {% block page_content %}
-  <div class='room-name-container'>
-    <div class='times'>
-      Time
-    </div><!--
-  -->{% for room in rooms %}<!--
-  --><div class='sideways-text {{floor}}-width top-align'><!--
-      -->{{ room.resourceName }}<!--
-    --></div><!--
-  -->{% endfor %}<!--
- --></div>
-</section>
 <section class='block-container'><!--
 --><div class='times top-align'>
     {% for time in times %}
@@ -30,4 +19,5 @@
       </div><!--
     -->{% endfor %}<!--
 --></section>
+
 {% endblock %}
