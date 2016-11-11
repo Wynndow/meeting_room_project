@@ -1,0 +1,24 @@
+{
+  "name": "meeting_room_project",
+  "version": "1.0.0",
+  "description": "Meeting Room App for GDS",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wynndow/meeting_room_project.git"
+  },
+  "author": "Chris Wynne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wynndow/meeting_room_project/issues"
+  },
+  "homepage": "https://github.com/Wynndow/meeting_room_project",
+  "dependencies": {
+    "govuk_frontend_toolkit": "^5.0.0"
+  }
+}

@@ -3,6 +3,7 @@
 client_secret.json
 
 /venv
+/node_modules
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
