@@ -24,6 +24,6 @@ class TestApiClient():
         _fetch_resources.return_value = data
         floor = 'third'
         rooms = api_client.get_room_list(floor).rooms
-        room_names = map(lambda room: room['resourceName'], rooms)
+        room_names = list(map(lambda room: room['resourceName'], rooms))
         assert 'Meeting Room 305 (12)' not in room_names
         assert '305 (12)' in room_names
