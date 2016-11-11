@@ -6,7 +6,7 @@ It also sends email reminders once a day to all staff who have any room bookings
 
 ## Screenshot
 
-<img width="1440" alt="meeting_room_screenshot" src="https://cloud.githubusercontent.com/assets/13836290/18210815/4f720d0a-7132-11e6-9a56-1b531ca5d403.png">
+<img width="1440" alt="screen shot 2016-11-11 at 13 23 43" src="https://cloud.githubusercontent.com/assets/13836290/20216431/725aba44-a812-11e6-991a-68db9cf8fec7.png">
 
 ## Live example
 
