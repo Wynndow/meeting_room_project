@@ -4,5 +4,9 @@ python:
   - "3.5"
 install:
   - pip install -r requirements_for_test.txt
+  - pip install coveralls
+  - pip install pytest-cov
 script:
-  - make test
+  - py.test --cov=app --cov-report=term-missing
+after_success:
+  coveralls
