@@ -10,52 +10,62 @@
 {% endblock %}
 
 {% block content %}
-<section id="header">
-  <div>
+<section class="header container">
+  <div class="row">
     <div class="header-contents" id="date-floor-div">
       <form action="/" method="get" class="header-contents">
-      <div>
-        <label for="floor">
-          Floor:
-        </label>
-        <select name="floor" class="selectpicker">
-          <option {% if floor=="all" %}selected{% endif %} value="all">All</option>
-          <option {% if floor=="third" %}selected{% endif %} value="third">Third</option>
-          <option {% if floor=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
-          <option {% if floor=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
-        </select>
-      </div>
-      <div>
-        <label for="date">
-          Date:
-        </label>
-        <input type="date" name="date" value="{{ date }}"/>
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
+        <div class="input-group">
+          <span class="input-group-addon" id="floor-addon">Floor</span>
+          <select name="floor" class="selectpicker form-control" aria-decribedby="floor-addon">
+            <option {% if floor=="all" %}selected{% endif %} value="all">All</option>
+            <option {% if floor=="third" %}selected{% endif %} value="third">Third</option>
+            <option {% if floor=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
+            <option {% if floor=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
+          </select>
+        </div>
+        <div class="input-group with-margin">
+          <span class="input-group-addon" id="date-addon">Date</span>
+          <input class="form-control" type="date" name="date" value="{{ date }}" aria-decribedby="date-addon"/>
+        </div>
+        <div class="submit-container with-margin">
+          <input type="submit" value="Submit" class="btn btn-primary"/>
+        </div>
+      </form>
     </div>
     <div class="header-contents" id="page-title-div">
       <h1>Meeting Room Availability</h1>
     </div>
     <div class="header-contents" id="status-div">
-      <section>
-        <div class="header-contents">
-          <h5>Status:</h5>
+      <div class="input-group with-margin">
+        <span class="input-group-addon" id="status-addon">Status</span>
+        <div class="form-control" aria-decribedby="status-addon">
+          <span id="header-status"></span>
         </div>
-        <div class="header-contents">
-          <h5><span id="header-status"></span></h5>
+      </div>
+      <div class="input-group with-margin">
+        <span class="input-group-addon" id="time-addon">Time</span>
+        <div class="form-control" aria-decribedby="time-addon">
+          <span id="header-time">Words</span>
         </div>
-      </section>
-      <section>
-        <div class="header-contents">
-          <h5>Time:</h5>
-        </div>
-        <div class="header-contents">
-          <h5><span id="header-time"></span></h5>
-        </div>
-      </section>
+      </div>
+      <div class="feedback-container with-margin">
+          <a href="mailto:meetingroom.notifications@digital.cabinet-office.gov.uk?Subject=Feedback" class="btn btn-primary">Leave feedback</a>
+      </div>
     </div>
   </div>
+  <section class="row">
+    <div class='room-name-container'>
+      <div class='times'>
+        Time
+      </div><!--
+    -->{% for room in rooms %}<!--
+    --><div class='sideways-text {{floor}}-width top-align'><!--
+        -->{{ room.resourceName }}<!--
+      --></div><!--
+    -->{% endfor %}<!--
+   --></div>
+  </section>
+</section>
 {% block page_content %}{% endblock %}
 {% endblock %}
 
