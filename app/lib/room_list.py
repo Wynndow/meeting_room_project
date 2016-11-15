@@ -1,6 +1,7 @@
 from flask import current_app
 from datetime import datetime
 from dateutil.tz import tzlocal
+from ..exceptions import InvalidUsage
 
 
 class RoomList():
