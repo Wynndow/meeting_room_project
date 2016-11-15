@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block page_content %}
-<div class="jumbotron">
-  <div class="error-container">
-    <h3>Sorry, that's not going to work.</h3>
+<section class='block-container'>
+  <div class="jumbotron">
+    <div class="error-container">
+      <h3>Sorry, that's not going to work.</h3>
+    </div>
+    <div class="error-container">
+      <h3>{{ message }}</h3>
+    </div>
   </div>
-  <div class="error-container">
-    <h3>{{ message }}</h3>
-  </div>
-</div>
+</section>
 {% endblock %}
