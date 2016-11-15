@@ -95,6 +95,21 @@ class EmailReminder():
                 print('A wild error appeared! $$$ {}'.format(e))
                 break
 
+        try:
+            admin_address = current_app.config['ADMIN_EMAIL']
+            admin_msg = MIMEText(
+                '{} emails sent at {}'.format(
+                    len(all_events.items()),
+                    datetime.now().strftime('%d/%m/%y @ %H:%M')
+                )
+            )
+            admin_msg['Subject'] = 'Reminder emails sent.'
+            admin_msg['From'] = admin_address
+            admin_msg['To'] = admin_address
+            smtp_server.sendmail(admin_address, [admin_address], admin_msg.as_string())
+        except Exception as e:
+            print('An error occured sending admin email! $$$ {}'.format(e))
+
         smtp_server.quit()
 
     def _create_smtp_server(self):
