@@ -10,7 +10,10 @@ class TestAuthViews():
         self.client = self.app.test_client()
 
     @mock.patch('app.lib.email_reminder.EmailReminder._get_all_days_events')
-    def test_send_mails_returns_204(self, _get_all_days_events):
+    @mock.patch('app.lib.email_reminder.smtplib')
+    def test_send_mails_returns_204(self, smtplib, _get_all_days_events):
+        server_mock = mock.MagicMock()
+        smtplib.SMTP.return_value = server_mock
         _get_all_days_events.return_value = []
 
         with self.app.app_context():
