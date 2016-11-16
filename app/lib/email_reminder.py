@@ -89,14 +89,14 @@ class EmailReminder():
             msg.attach(part1)
             msg.attach(part2)
 
-            if current_app.config.get('SEND_EMAILS'):
+            if not current_app.config.get('TESTING'):
                 try:
                     smtp_server.sendmail(sender, [receiver], msg.as_string())
                 except Exception as e:
                     print('A wild error appeared! $$$ {}'.format(e))
                     break
 
-        if current_app.config.get('SEND_EMAILS'):
+        if not current_app.config.get('TESTING'):
             try:
                 admin_address = current_app.config['ADMIN_EMAIL']
                 admin_msg = MIMEText(
