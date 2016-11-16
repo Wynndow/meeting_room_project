@@ -89,26 +89,28 @@ class EmailReminder():
             msg.attach(part1)
             msg.attach(part2)
 
-            try:
-                smtp_server.sendmail(sender, [receiver], msg.as_string())
-            except Exception as e:
-                print('A wild error appeared! $$$ {}'.format(e))
-                break
+            if not current_app.config.get('TESTING'):
+                try:
+                    smtp_server.sendmail(sender, [receiver], msg.as_string())
+                except Exception as e:
+                    print('A wild error appeared! $$$ {}'.format(e))
+                    break
 
-        try:
-            admin_address = current_app.config['ADMIN_EMAIL']
-            admin_msg = MIMEText(
-                '{} emails sent at {}'.format(
-                    len(all_events.items()),
-                    datetime.now().strftime('%d/%m/%y @ %H:%M')
+        if not current_app.config.get('TESTING'):
+            try:
+                admin_address = current_app.config['ADMIN_EMAIL']
+                admin_msg = MIMEText(
+                    '{} emails sent at {}'.format(
+                        len(all_events.items()),
+                        datetime.now().strftime('%d/%m/%y @ %H:%M')
+                    )
                 )
-            )
-            admin_msg['Subject'] = 'Reminder emails sent.'
-            admin_msg['From'] = admin_address
-            admin_msg['To'] = admin_address
-            smtp_server.sendmail(admin_address, [admin_address], admin_msg.as_string())
-        except Exception as e:
-            print('An error occured sending admin email! $$$ {}'.format(e))
+                admin_msg['Subject'] = 'Reminder emails sent.'
+                admin_msg['From'] = admin_address
+                admin_msg['To'] = admin_address
+                smtp_server.sendmail(admin_address, [admin_address], admin_msg.as_string())
+            except Exception as e:
+                print('An error occured sending admin email! $$$ {}'.format(e))
 
         smtp_server.quit()
 
