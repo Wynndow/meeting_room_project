@@ -222,3 +222,41 @@ class TestEmailReminder():
         message = server_mock.mock_calls[-2][1][2]
 
         assert 'Subject: Reminder emails sent.' in message
+
+    @mock.patch('app.lib.email_reminder.MIMEMultipart')
+    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
+    @mock.patch('app.lib.email_reminder.smtplib')
+    @mock.patch('app.lib.email_reminder.current_app')
+    def test_resource_email_addresses_not_emailed(self, current_app, smtplib, load_room_ids, MIMEMultipart):
+        MIMEMultipart.return_value.as_string.return_value = 'Email message'
+        load_room_ids.return_value = {'all': ['roomID']}
+        server_mock = mock.MagicMock()
+        smtplib.SMTP.return_value = server_mock
+        calendar_mock = mock.MagicMock()
+        calendar_mock.events.return_value.list.return_value.execute.return_value = {
+            'items': [
+                {
+                    u'end': {
+                        u'dateTime': u'2016-10-21T16:30:00'
+                    },
+                    u'organizer': {
+                        u'email': u'digital.cabinet-office.gov.uk@example.com',
+                    },
+                    u'start': {
+                        u'dateTime': u'2016-10-21T14:30:00',
+                    }
+                }
+            ]
+        }
+        current_app.config = {
+            'CALENDAR': calendar_mock,
+            'MAIL_SERVER': 'server',
+            'MAIL_PORT': 25,
+            'MAIL_USERNAME': 'chris',
+            'MAIL_PASSWORD': 'password',
+            'ADMIN_EMAIL': 'admin@example.com'
+        }
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        assert mock.call.sendmail('admin@example.com', ['admin@example.com'], 'Email message') not in server_mock.mock_calls
