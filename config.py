@@ -30,22 +30,20 @@ class Config:
     ADMIN_EMAIL = os.environ.get('MR_ADMIN_EMAIL')
     AUTH_REQUIRED = True
     AUTH_TOKEN = os.environ.get('MR_AUTH_TOKEN')
-    SEND_EMAILS = False
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SEND_EMAILS = False
 
 
 class TestingConfig(Config):
     TESTING = True
     TEST_MAIL_ADDRESS = os.environ.get('MR_TEST_EMAIL_ADDRESS')
-    SEND_EMAILS = False
 
 
 class ProductionConfig(Config):
-    SEND_EMAILS = True
+    pass
+
 
 config = {
     'development': DevelopmentConfig,
