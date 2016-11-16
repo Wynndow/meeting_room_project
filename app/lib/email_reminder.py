@@ -68,7 +68,7 @@ class EmailReminder():
         for email_address, events in all_events.items():
             sender = current_app.config['ADMIN_EMAIL']
             receiver = current_app.config['TEST_MAIL_ADDRESS'] if current_app.config.get('TESTING') \
-                else current_app.config['ADMIN_EMAIL']
+                else email_address
             msg = MIMEMultipart('alternative')
             msg['Subject'] = 'Your meeting room booking{} tomorrow'.format('s' if len(events) > 1 else '')
             msg['From'] = sender

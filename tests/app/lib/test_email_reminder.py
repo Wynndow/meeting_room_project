@@ -40,7 +40,7 @@ class TestEmailReminder():
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert mock.call.sendmail('admin@example.com', ['admin@example.com'], 'Email message') in server_mock.mock_calls
+        assert mock.call.sendmail('admin@example.com', ['test@example.com'], 'Email message') in server_mock.mock_calls
 
     @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
     @mock.patch('app.lib.email_reminder.smtplib')
@@ -130,7 +130,7 @@ class TestEmailReminder():
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert mock.call.sendmail('admin@example.com', ['admin@example.com'], 'Email message') in server_mock.mock_calls
+        assert mock.call.sendmail('admin@example.com', ['test@example.com'], 'Email message') in server_mock.mock_calls
 
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
     @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
