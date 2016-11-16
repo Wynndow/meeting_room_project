@@ -2,8 +2,10 @@
 .cache
 .coverage
 client_secret.json
+__pycache__
 
 /venv
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
