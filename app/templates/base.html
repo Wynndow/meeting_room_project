@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include "_favicons.html" %}
 {% endblock %}
 
 {% block content %}
@@ -36,17 +37,11 @@
       <h1>Meeting Room Availability</h1>
     </div>
     <div class="header-contents" id="status-div">
-      <div class="input-group with-margin">
-        <span class="input-group-addon" id="status-addon">Status</span>
-        <div class="form-control" aria-decribedby="status-addon">
-          <span id="header-status"></span>
-        </div>
+      <div class="well well-sm" id="header-status-well">
+        Status: <span id="header-status">---</span>
       </div>
-      <div class="input-group with-margin">
-        <span class="input-group-addon" id="time-addon">Time</span>
-        <div class="form-control" aria-decribedby="time-addon">
-          <span id="header-time"></span>
-        </div>
+      <div class="well well-sm" id="header-time-well">
+        Time: <span id="header-time">---</span>
       </div>
       <div class="feedback-container with-margin">
           <a href="mailto:meetingroom.notifications@digital.cabinet-office.gov.uk?Subject=Feedback" class="btn btn-primary">Leave feedback</a>

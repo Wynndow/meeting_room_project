@@ -22,7 +22,10 @@ The email reminders are currently being sent via AWS SES.
 
 ### Running the application
 
-Clone the app and install requirements, then launch the app with `make run_app`
+0. Clone the app
+0. `$ cd meeting_room_project`
+0. Install requirements with `$ pip install -r requirements.txt`
+0. Launch the app with `$ make run_app`
 
 You will need to provide the following env variables:
 
@@ -39,7 +42,8 @@ You will need to provide the following env variables:
 
 ### Running the test suite
 
-`make test`
+0. Install requirements for testing `$ pip install -r requirements_for_test.txt`
+0. Run the tests with `$ make test`
 
 ## Licence
 
