@@ -8,7 +8,8 @@ It also sends email reminders once a day to all staff who have any room bookings
 
 ## Screenshot
 
-<img width="1440" alt="screen shot 2016-11-11 at 13 23 43" src="https://cloud.githubusercontent.com/assets/13836290/20216431/725aba44-a812-11e6-991a-68db9cf8fec7.png">
+<img width="1440" alt="screen shot 2016-11-18 at 14 22 51" src="https://cloud.githubusercontent.com/assets/13836290/20433213/9477032a-ad9a-11e6-9694-9739343103a7.png">
+
 
 ## Live example
 
@@ -39,6 +40,11 @@ You will need to provide the following env variables:
 * `MR_EMAIL_PORT` - The port for the email server being used.
 * `MR_MAIL_SERVER` - The email server being used.
 * `MR_TEST_EMAIL_ADDRESS` = The test email address supplied by AWS.
+
+## Sending reminder emails
+
+The scheduling of sending reminder emails is handled in a separate app, which can be found here: [https://github.com/Wynndow/meeting_room_project_cron](https://github.com/Wynndow/meeting_room_project_cron).
+It sends a POST request to this app at a specified time which triggers the email sending. The POST route is protected with an token to prevent unintended sending.
 
 ### Running the test suite
 
