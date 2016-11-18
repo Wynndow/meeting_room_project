@@ -18,12 +18,19 @@ body {
 #page-title-div {
   width: 60vw;
   text-align: center;
-
 }
 
 #status-div {
   width: 19vw;
   padding: 2px;
+}
+
+#header-status-well {
+  margin-bottom: 2px
+}
+
+#header-time-well {
+  margin-bottom: 2px
 }
 
 .with-margin {
