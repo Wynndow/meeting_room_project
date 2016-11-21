@@ -95,7 +95,7 @@ h1 {
 
 .block-container {
   padding-top: 25vh;
-    width: 100vw;
+  width: 100vw;
 }
 
 .hour {
@@ -106,12 +106,12 @@ h1 {
 }
 
 .all-width {
-  width: 5vw;
+  width: 5.26vw;
   display: inline-block;
 }
 
 .third-width {
-  width: 8.63vw;
+  width: 9.5vw;
   display: inline-block;
 }
 
