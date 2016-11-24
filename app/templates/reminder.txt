@@ -3,9 +3,11 @@ Hello,
 Your meeting room booking details for tomorrow are:
 
 {% for event in events %}
+  Title: {{event.summary}}
   Room: {{ event.location }}
   Start: {{ event.start }}
-  End {{ event.end }}
+  End: {{ event.end }}
+  
 {% endfor %}
 
 Delete your room booking if you don't need it
