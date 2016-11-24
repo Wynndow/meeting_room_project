@@ -4,9 +4,10 @@
 
 {% for event in events %}
   <ul>
+    <li>Title: {{event.summary}}</li>
     <li>Room: {{ event.location }}</li>
     <li>Start: {{ event.start }}</li>
-    <li>End {{ event.end }}</li>
+    <li>End: {{ event.end }}</li>
   </ul>
 {% endfor %}
 
