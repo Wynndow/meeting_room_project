@@ -17,8 +17,13 @@ class EmailReminder():
     def send_reminders(self):
         calendar = current_app.config['CALENDAR']
         rooms = self._load_room_ids()['all']
-        tomorrows_events = self._get_all_days_events(calendar, rooms, datetime.now() + timedelta(days=1))
-        user_events = self._parse_events(tomorrows_events)
+        days_until_next_working_day = 3 if datetime.now().weekday() == 4 else 1
+        next_working_day_events = self._get_all_days_events(
+            calendar,
+            rooms,
+            datetime.now() + timedelta(days=days_until_next_working_day)
+        )
+        user_events = self._parse_events(next_working_day_events)
         self._send_the_emails(user_events)
 
     def _load_room_ids(self):

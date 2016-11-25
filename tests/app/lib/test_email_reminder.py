@@ -1,6 +1,8 @@
-import pytest
-from app.lib.email_reminder import EmailReminder
+from datetime import datetime
 import mock
+import pytest
+from freezegun import freeze_time
+from app.lib.email_reminder import EmailReminder
 
 
 class TestEmailReminder():
@@ -221,3 +223,39 @@ class TestEmailReminder():
         message = server_mock.mock_calls[-2][1][2]
 
         assert 'Subject: Reminder emails sent.' in message
+
+    @freeze_time('2016-11-24 16:09:00')
+    @mock.patch('app.lib.email_reminder.EmailReminder._get_all_days_events')
+    @mock.patch('app.lib.email_reminder.current_app')
+    @mock.patch('app.lib.email_reminder.smtplib')
+    def test_if_its_not_friday_it_retrieves_nextday_events(self, smtplib, current_app, _get_all_days_events):
+        current_app.config = {
+            'CALENDAR': 'calendar',
+            'MAIL_SERVER': 'server',
+            'MAIL_PORT': 25,
+            'MAIL_USERNAME': 'chris',
+            'MAIL_PASSWORD': 'password',
+            'ADMIN_EMAIL': 'admin@example.com'
+        }
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        _get_all_days_events.assert_called_once_with(mock.ANY, mock.ANY, datetime(2016, 11, 25, 16, 9, 0))
+
+    @freeze_time('2016-11-25 16:09:00')
+    @mock.patch('app.lib.email_reminder.EmailReminder._get_all_days_events')
+    @mock.patch('app.lib.email_reminder.current_app')
+    @mock.patch('app.lib.email_reminder.smtplib')
+    def test_if_its_friday_it_retrieves_monday_events(self, smtplib, current_app, _get_all_days_events):
+        current_app.config = {
+            'CALENDAR': 'calendar',
+            'MAIL_SERVER': 'server',
+            'MAIL_PORT': 25,
+            'MAIL_USERNAME': 'chris',
+            'MAIL_PASSWORD': 'password',
+            'ADMIN_EMAIL': 'admin@example.com'
+        }
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        _get_all_days_events.assert_called_once_with(mock.ANY, mock.ANY, datetime(2016, 11, 28, 16, 9, 0))
