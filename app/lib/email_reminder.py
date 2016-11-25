@@ -61,6 +61,10 @@ class EmailReminder():
                     'end': parse(event.get('end').get('dateTime')).strftime('%H:%M')
                 }
             )
+
+        for email, event_list in output.items():
+            output[email] = sorted(event_list, key=lambda k: k['start'])
+
         return output
 
     def _send_the_emails(self, all_events):
