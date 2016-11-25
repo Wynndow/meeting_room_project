@@ -7,7 +7,7 @@ Your meeting room booking details for tomorrow are:
   Room: {{ event.location }}
   Start: {{ event.start }}
   End: {{ event.end }}
-  
+
 {% endfor %}
 
 Delete your room booking if you don't need it
@@ -25,6 +25,8 @@ Think about using a smaller room
 --------------------------------
 
 If you've got fewer people coming to the meeting than you first thought, it would be great if you could try moving to a smaller room.
+
+Check if a meeting room's free at:https://meeting-rooms.cloudapps.digital/
 
 Thanks,
 Your friendly meeting room app
