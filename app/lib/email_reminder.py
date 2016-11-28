@@ -93,8 +93,8 @@ class EmailReminder():
             text = text_body.render(events=events)
             html = html_body.render(events=events)
 
-            part1 = MIMEText(text, 'plain')
-            part2 = MIMEText(html, 'html')
+            part1 = MIMEText(text.encode('utf-8'), 'plain')
+            part2 = MIMEText(html.encode('utf-8'), 'html')
 
             msg.attach(part1)
             msg.attach(part2)
