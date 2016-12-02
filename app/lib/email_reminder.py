@@ -12,12 +12,12 @@ from email.mime.multipart import MIMEMultipart
 class EmailReminder():
 
     def __init__(self):
-        pass
+        self.day_of_the_week = datetime.now().weekday()
 
     def send_reminders(self):
         calendar = current_app.config['CALENDAR']
         rooms = self._load_room_ids()['all']
-        days_until_next_working_day = 3 if datetime.now().weekday() == 4 else 1
+        days_until_next_working_day = 3 if self.day_of_the_week == 4 else 1
         next_working_day_events = self._get_all_days_events(
             calendar,
             rooms,
@@ -80,7 +80,10 @@ class EmailReminder():
             receiver = current_app.config['TEST_MAIL_ADDRESS'] if current_app.config.get('TESTING') \
                 else email_address
             msg = MIMEMultipart('alternative')
-            msg['Subject'] = 'Your meeting room booking{} tomorrow'.format('s' if len(events) > 1 else '')
+            msg['Subject'] = 'Your meeting room booking{} {}'.format(
+                's' if len(events) > 1 else '',
+                'on Monday' if self.day_of_the_week == 4 else 'tomorrow'
+            )
             msg['From'] = sender
             msg['To'] = receiver
 
