@@ -61,7 +61,7 @@ class EmailReminder():
             output[organizer].append(
                 {
                     'summary': event.get('summary'),
-                    'location': event.get('location'),
+                    'location': event.get('location', 'Check your calendar'),
                     'start': parse(event.get('start').get('dateTime')).strftime('%H:%M'),
                     'end': parse(event.get('end').get('dateTime')).strftime('%H:%M')
                 }
