@@ -3,8 +3,6 @@ from dateutil import tz
 
 
 class TimeZoneConverter():
-    def __init__(self):
-        pass
 
     @staticmethod
     def utc_to_london(time_string):
