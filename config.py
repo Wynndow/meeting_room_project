@@ -33,7 +33,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MAIL_PASSWORD = 'not_a_password'
+    MAIL_PASSWORD = os.environ.get('MR_AWS_SMTP_PASSWORD')
 
 
 class TestingConfig(Config):
