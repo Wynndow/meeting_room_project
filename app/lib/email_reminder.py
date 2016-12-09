@@ -13,6 +13,7 @@ class EmailReminder():
 
     def __init__(self):
         self.day_of_the_week = datetime.now().weekday()
+        self.day_in_question = 'Monday' if self.day_of_the_week == 4 else 'tomorrow'
 
     def send_reminders(self):
         calendar = current_app.config['CALENDAR']
@@ -80,9 +81,9 @@ class EmailReminder():
             receiver = current_app.config['TEST_MAIL_ADDRESS'] if current_app.config.get('TESTING') \
                 else email_address
             msg = MIMEMultipart('alternative')
-            msg['Subject'] = 'Your meeting room booking{} {}'.format(
+            msg['Subject'] = 'Your meeting room booking{} for {}'.format(
                 's' if len(events) > 1 else '',
-                'on Monday' if self.day_of_the_week == 4 else 'tomorrow'
+                self.day_in_question
             )
             msg['From'] = sender
             msg['To'] = receiver
@@ -93,8 +94,8 @@ class EmailReminder():
             text_body = env.get_template('reminder.txt')
             html_body = env.get_template('reminder.html')
 
-            text = text_body.render(events=events)
-            html = html_body.render(events=events)
+            text = text_body.render(events=events, day=self.day_in_question)
+            html = html_body.render(events=events, day=self.day_in_question)
 
             part1 = MIMEText(text.encode('utf-8'), 'plain')
             part2 = MIMEText(html.encode('utf-8'), 'html')
