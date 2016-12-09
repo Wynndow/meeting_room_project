@@ -1,285 +1,156 @@
 from datetime import datetime
+from copy import deepcopy
 import mock
-import pytest
 from freezegun import freeze_time
 from app.lib.email_reminder import EmailReminder
 
+GENERIC_EVENT = {
+    'items': [
+        {
+            u'end': {
+                u'dateTime': u'2016-10-21T16:30:00'
+            },
+            u'organizer': {
+                u'email': u'test@example.com',
+            },
+            u'start': {
+                u'dateTime': u'2016-10-21T14:30:00',
+            }
+        }
+    ]
+}
+
 
 class TestEmailReminder():
+
+    def setup(self):
+        self._load_room_ids_patch = mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
+        self.logged_in_server_patch = mock.patch('app.lib.email_reminder.LoggedInServer')
+        self.current_app_patch = mock.patch('app.lib.email_reminder.current_app')
+
+        self._load_room_ids = self._load_room_ids_patch.start()
+        self.logged_in_server = self.logged_in_server_patch.start()
+        self.current_app = self.current_app_patch.start()
+
+        self.server_mock = mock.MagicMock()
+        self.calendar_mock = mock.MagicMock()
+
+        self._load_room_ids.return_value = {'all': ['roomID']}
+        self.logged_in_server.return_value = self.server_mock
+
+        self.current_app.config = {
+            'CALENDAR': self.calendar_mock,
+            'MAIL_SERVER': 'server',
+            'MAIL_PORT': 25,
+            'MAIL_USERNAME': 'chris',
+            'MAIL_PASSWORD': 'password',
+            'ADMIN_EMAIL': 'admin@example.com'
+        }
+        self.events = deepcopy(GENERIC_EVENT)
+
+    def teardown(self):
+        self._load_room_ids_patch.stop()
+        self.logged_in_server_patch.stop()
+        self.current_app_patch.stop()
+
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_send_reminders_correctly_calls_the_smtp_server(self, current_app, smtplib, load_room_ids, MIMEMultipart):
+    def test_send_reminders_correctly_calls_the_logged_in_server(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
-        email_reminder = EmailReminder()
-        email_reminder.send_reminders()
-
-        assert mock.call.sendmail('admin@example.com', ['test@example.com'], 'Email message') in server_mock.mock_calls
-
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_it_sends_the_correct_message(self, current_app, smtplib, load_room_ids):
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    },
-                    u'location': u'Room 101',
-                    u'summary': u'Stuff about stuff'
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = GENERIC_EVENT
 
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        message = server_mock.mock_calls[-3][1][2]
+        assert mock.call.sendmail(
+            'admin@example.com',
+            ['test@example.com'],
+            'Email message'
+        ) in self.server_mock.mock_calls
+
+    def test_it_sends_the_correct_message(self):
+        self.events['items'][0].update({
+            u'location': u'Room 101',
+            u'summary': u'Stuff about stuff'
+        })
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        message = self.server_mock.mock_calls[0][1][2]
 
         assert """Title: Stuff about stuff\n  Room: Room 101\n  Start: 14:30\n  End: 16:30""" in message
 
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_it_sends_the_correct_message_if_no_location_set(self, current_app, smtplib, load_room_ids):
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    },
-                    u'summary': u'Stuff about stuff'
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+    def test_it_sends_the_correct_message_if_no_location_set(self):
+        self.events['items'][0].update({
+            u'summary': u'Stuff about stuff'
+        })
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
 
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        message = server_mock.mock_calls[-3][1][2]
+        message = self.server_mock.mock_calls[0][1][2]
 
         assert """Title: Stuff about stuff\n  Room: Check your calendar\n  Start: 14:30\n  End: 16:30""" in message
 
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_send_reminders_only_sends_one_email_for_multiple_bookings(
-        self, current_app, smtplib, load_room_ids, MIMEMultipart
-    ):
+    def test_send_reminders_only_sends_one_email_for_multiple_bookings(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                },
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T11:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T10:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        event_two = self.events['items'][0].copy()
+        event_two.update({
+            u'start': {
+                u'dateTime': u'2016-10-21T10:30:00',
+            },
+            u'end': {
+                u'dateTime': u'2016-10-21T11:30:00'
+            },
+        })
+        self.events['items'].append(event_two)
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert mock.call.sendmail('admin@example.com', ['test@example.com'], 'Email message') in server_mock.mock_calls
+        assert mock.call.sendmail(
+            'admin@example.com',
+            ['test@example.com'],
+            'Email message'
+        ) in self.server_mock.mock_calls
 
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_send_reminders_sends_email_to_multiple_users(
-        self, current_app, smtplib, load_room_ids, MIMEMultipart
-    ):
+    def test_send_reminders_sends_email_to_multiple_users(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                },
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T11:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'anothertest@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T10:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        event_two = self.events['items'][0].copy()
+        event_two.update({
+            u'organizer': {
+                u'email': u'anothertest@example.com',
+            },
+        })
+        self.events['items'].append(event_two)
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert server_mock.sendmail.call_count == 3
+        assert len(self.server_mock.mock_calls) == 3
 
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_send_reminders_sends_admin_confirmation(self, current_app, smtplib, load_room_ids, MIMEMultipart):
+    def test_send_reminders_sends_admin_confirmation(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        message = server_mock.mock_calls[-2][1][2]
+        message = self.server_mock.mock_calls[-1][1][2]
 
         assert 'Subject: Reminder emails sent.' in message
 
     @freeze_time('2016-11-24 16:09:00')
     @mock.patch('app.lib.email_reminder.EmailReminder._get_all_days_events')
-    @mock.patch('app.lib.email_reminder.current_app')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    def test_if_its_not_friday_it_retrieves_nextday_events(self, smtplib, current_app, _get_all_days_events):
-        current_app.config = {
-            'CALENDAR': 'calendar',
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+    def test_if_its_not_friday_it_retrieves_nextday_events(self, _get_all_days_events):
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
@@ -287,17 +158,8 @@ class TestEmailReminder():
 
     @freeze_time('2016-11-25 16:09:00')
     @mock.patch('app.lib.email_reminder.EmailReminder._get_all_days_events')
-    @mock.patch('app.lib.email_reminder.current_app')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    def test_if_its_friday_it_retrieves_monday_events(self, smtplib, current_app, _get_all_days_events):
-        current_app.config = {
-            'CALENDAR': 'calendar',
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+    def test_if_its_friday_it_retrieves_monday_events(self, _get_all_days_events):
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
@@ -305,104 +167,22 @@ class TestEmailReminder():
 
     @freeze_time('2016-11-25 16:09:00')
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_subject_is_correct_if_friday(
-        self, current_app, smtplib, load_room_ids, MIMEMultipart
-    ):
+    def test_subject_is_correct_if_friday(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                },
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T11:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T10:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings for Monday'
+        assert MIMEMultipart.mock_calls[3][1][1] == 'Your meeting room booking for Monday'
 
     @freeze_time('2016-11-24 16:09:00')
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
-    @mock.patch('app.lib.email_reminder.EmailReminder._load_room_ids')
-    @mock.patch('app.lib.email_reminder.smtplib')
-    @mock.patch('app.lib.email_reminder.current_app')
-    def test_subject_is_correct_if_not_friday(
-        self, current_app, smtplib, load_room_ids, MIMEMultipart
-    ):
+    def test_subject_is_correct_if_not_friday(self, MIMEMultipart):
         MIMEMultipart.return_value.as_string.return_value = 'Email message'
-        load_room_ids.return_value = {'all': ['roomID']}
-        server_mock = mock.MagicMock()
-        smtplib.SMTP.return_value = server_mock
-        calendar_mock = mock.MagicMock()
-        calendar_mock.events.return_value.list.return_value.execute.return_value = {
-            'items': [
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T16:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T14:30:00',
-                    }
-                },
-                {
-                    u'end': {
-                        u'dateTime': u'2016-10-21T11:30:00'
-                    },
-                    u'organizer': {
-                        u'email': u'test@example.com',
-                    },
-                    u'start': {
-                        u'dateTime': u'2016-10-21T10:30:00',
-                    }
-                }
-            ]
-        }
-        current_app.config = {
-            'CALENDAR': calendar_mock,
-            'MAIL_SERVER': 'server',
-            'MAIL_PORT': 25,
-            'MAIL_USERNAME': 'chris',
-            'MAIL_PASSWORD': 'password',
-            'ADMIN_EMAIL': 'admin@example.com'
-        }
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings for tomorrow'
+        assert MIMEMultipart.mock_calls[3][1][1] == 'Your meeting room booking for tomorrow'
