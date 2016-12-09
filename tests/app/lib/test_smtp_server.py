@@ -1,6 +1,7 @@
 import mock
 from app.lib.smtp_server import LoggedInServer
 
+
 class TestSmtpServer():
 
     @mock.patch('app.lib.smtp_server.smtplib')

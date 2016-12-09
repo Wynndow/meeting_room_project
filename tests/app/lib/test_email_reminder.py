@@ -186,3 +186,28 @@ class TestEmailReminder():
         email_reminder.send_reminders()
 
         assert MIMEMultipart.mock_calls[3][1][1] == 'Your meeting room booking for tomorrow'
+
+    def test_resource_email_addresses_are_ignored(self):
+        self.events['items'][0].update({
+            u'organizer': {
+                u'email': u'digital.cabinet-office.gov.uk@example.com',
+            },
+        })
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        assert len(self.server_mock.mock_calls) == 1
+        assert self.server_mock.mock_calls[0][1][1][0] != 'digital.cabinet-office.gov.uk@example.com'
+
+    def test_error_sending_email_sends_email_to_admin(self):
+        self.server_mock.sendmail.side_effect = [Exception('Something went wrong'), True, True]
+        self.calendar_mock.events.return_value.list.return_value.execute.return_value = self.events
+
+        email_reminder = EmailReminder()
+        email_reminder.send_reminders()
+
+        assert self.server_mock.mock_calls[1][1][1][0] == 'admin@example.com'
+        assert 'Subject: Error sending email to test@example.com' in self.server_mock.mock_calls[1][1][2]
+        assert 'A wild error appeared! $$$ Something went wrong' in self.server_mock.mock_calls[1][1][2]

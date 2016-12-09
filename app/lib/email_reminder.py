@@ -89,7 +89,6 @@ class EmailReminder():
 
             message.attach(part1)
             message.attach(part2)
-
             if not current_app.config.get('TESTING'):
                 try:
                     self.logged_in_server.sendmail(sender, [receiver], message.as_string())
