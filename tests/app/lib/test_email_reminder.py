@@ -353,7 +353,7 @@ class TestEmailReminder():
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings on Monday'
+        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings for Monday'
 
     @freeze_time('2016-11-24 16:09:00')
     @mock.patch('app.lib.email_reminder.MIMEMultipart')
@@ -405,4 +405,4 @@ class TestEmailReminder():
         email_reminder = EmailReminder()
         email_reminder.send_reminders()
 
-        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings tomorrow'
+        assert MIMEMultipart.mock_calls[1][1][1] == 'Your meeting room bookings for tomorrow'

@@ -1,6 +1,6 @@
 Hello,
 
-Your meeting room booking details for tomorrow are:
+Your meeting room booking details for {{day}} are:
 
 {% for event in events %}
   Title: {{event.summary}}
