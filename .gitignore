@@ -5,7 +5,7 @@ client_secret.json
 __pycache__
 
 /venv
-
+.envrc
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
