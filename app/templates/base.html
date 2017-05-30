@@ -41,7 +41,12 @@
       </form>
     </div>
     <div class="header-contents" id="page-title-div">
-      <h1>Meeting Room Availability</h1>
+      {% if building == 'aviation' %}
+      <div class="building-link-container">Aviation House - go to <a href="/whitechapel">Whitechapel?</a></div>
+      {% else %}
+      <div class="building-link-container">Whitechapel - go to <a href="/">Aviation House?</a></div>
+      {% endif %}
+      <div><h1>Meeting Room Availability</h1></div>
     </div>
     <div class="header-contents" id="status-div">
       <div class="well well-sm" id="header-status-well">

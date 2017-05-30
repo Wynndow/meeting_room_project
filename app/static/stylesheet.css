@@ -43,6 +43,10 @@ body {
   }
 }
 
+.building-link-container {
+  height: 0.5vh;
+}
+
 h1 {
   font-size: 2.5vw;
 }

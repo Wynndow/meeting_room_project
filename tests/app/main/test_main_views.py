@@ -7,10 +7,18 @@ class TestMainView():
         self.app = create_app('testing')
         self.client = self.app.test_client()
 
-    def test_home_page(self):
+    def test_aviation_house_page(self):
         res = self.client.get('/')
 
         assert res.status_code == 200
+        assert 'Aviation House - go to <a href="/whitechapel">Whitechapel?</a>' in res.get_data(as_text=True)
+        assert 'GDS Meeting Room Availablity' in res.get_data(as_text=True)
+
+    def test_whitechapel_page(self):
+        res = self.client.get('/whitechapel')
+
+        assert res.status_code == 200
+        assert 'Whitechapel - go to <a href="/">Aviation House?</a>' in res.get_data(as_text=True)
         assert 'GDS Meeting Room Availablity' in res.get_data(as_text=True)
 
     def test_error_page_rendered_for_incorrect_date(self):
