@@ -43,6 +43,10 @@ body {
   }
 }
 
+.building-link-container {
+  height: 0.5vh;
+}
+
 h1 {
   font-size: 2.5vw;
 }
@@ -122,6 +126,26 @@ h1 {
 
 .seventh-width {
   width: 19vw;
+  display: inline-block;
+}
+
+.wc-all-width {
+  width: 6.78vw;
+  display: inline-block;
+}
+
+.wc-third-width {
+  width: 10.5vw;
+  display: inline-block;
+}
+
+.wc-sixth-width {
+  width: 13.57vw;
+  display: inline-block;
+}
+
+.wc-seventh-width {
+  width: 13.57vw;
   display: inline-block;
 }
 
