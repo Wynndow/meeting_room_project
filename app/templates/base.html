@@ -14,7 +14,7 @@
 <section class="header container">
   <div class="row">
     <div class="header-contents" id="date-floor-div">
-      <form action="/{% if building == 'whitechapel' %}whitechapel{% endif %}" method="get" class="header-contents">
+      <form action="/{% if building == 'aviation' %}aviation{% endif %}" method="get" class="header-contents">
         <div class="input-group">
           <span class="input-group-addon" id="floor-addon">Floor</span>
           <select name="floor" class="selectpicker form-control" aria-decribedby="floor-addon">
@@ -42,9 +42,9 @@
     </div>
     <div class="header-contents" id="page-title-div">
       {% if building == 'aviation' %}
-      <div class="building-link-container">Aviation House - go to <a href="/whitechapel">Whitechapel?</a></div>
+      <div class="building-link-container">Aviation House - go to <a href="/">Whitechapel</a></div>
       {% else %}
-      <div class="building-link-container">Whitechapel - go to <a href="/">Aviation House?</a></div>
+      <div class="building-link-container">Whitechapel - go to <a href="/aviation">Aviation House</a></div>
       {% endif %}
       <div><h1>Meeting Room Availability</h1></div>
     </div>
