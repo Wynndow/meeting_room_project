@@ -35,7 +35,7 @@ class TestEmailReminder():
         self.server_mock = mock.MagicMock()
         self.calendar_mock = mock.MagicMock()
 
-        self._load_room_ids.return_value = {'all': ['roomID']}
+        self._load_room_ids.return_value = {'wc-all': ['roomID']}
         self.logged_in_server.return_value = self.server_mock
 
         self.current_app.config = {
