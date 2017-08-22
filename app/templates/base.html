@@ -26,8 +26,12 @@
             {% endif %}
             {% if building == 'whitechapel' %}
             <option {% if room_group=="wc-all" %}selected{% endif %} value="wc-all">All</option>
-            <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth</option>
-            <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh</option>
+            <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth floor</option>
+            <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh floor</option>
+            <option {% if room_group=="wc-meeting" %}selected{% endif %} value="wc-meeting">Meeting rooms</option>
+            <option {% if room_group=="wc-project" %}selected{% endif %} value="wc-project">Project rooms</option>
+            <option {% if room_group=="wc-think" %}selected{% endif %} value="wc-think">Think Tanks</option>
+            <option {% if room_group=="wc-other" %}selected{% endif %} value="wc-other">Other rooms</option>
             {% endif %}
           </select>
         </div>
