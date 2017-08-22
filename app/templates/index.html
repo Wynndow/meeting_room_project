@@ -9,7 +9,7 @@
     {% endfor %}
   </div><!--
   -->{% for room in rooms %}<!--
-  --><div class='{{floor}}-width top-align'>
+  --><div class='{{room_group}}-width top-align'>
         {% for block in full_days.get(room.resourceEmail) %}
             <div class='{{ block.status }}' style='height: {{ block.length }}px'>
               <div>{{ block.status }}</div>

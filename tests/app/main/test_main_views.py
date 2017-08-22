@@ -28,7 +28,7 @@ class TestMainView():
         assert "You&#39;ve submitted an invalid date!" in res.get_data(as_text=True)
 
     def test_error_page_rendered_for_incorrect_floor(self):
-        res = self.client.get('?floor=not_a_floor', follow_redirects=True)
+        res = self.client.get('/?room_group=not_a_floor', follow_redirects=True)
 
         assert res.status_code == 400
-        assert "You&#39;ve submitted an invalid floor!" in res.get_data(as_text=True)
+        assert "You&#39;ve submitted an invalid floor or room type!" in res.get_data(as_text=True)
