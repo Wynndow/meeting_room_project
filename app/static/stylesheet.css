@@ -130,22 +130,36 @@ h1 {
 }
 
 .wc-all-width {
-  width: 6.78vw;
-  display: inline-block;
-}
-
-.wc-third-width {
-  width: 10.5vw;
+  width: 3.8vw;
   display: inline-block;
 }
 
 .wc-sixth-width {
-  width: 13.57vw;
+  width: 7.3vw;
   display: inline-block;
 }
 
 .wc-seventh-width {
+  width: 7.91vw;
+  display: inline-block;
+}
+
+.wc-meeting-width {
+  width: 15.83vw;
+  display: inline-block;
+}
+
+.wc-project-width {
   width: 13.57vw;
+  display: inline-block;
+}
+
+.wc-think-width {
+  width: 11.87vw;
+  display: inline-block;
+}
+.wc-other-width {
+  width: 23.75vw;
   display: inline-block;
 }
 

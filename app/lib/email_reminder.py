@@ -32,7 +32,7 @@ class EmailReminder():
         self._send_the_emails(user_events)
 
     def _load_room_ids(self):
-        with open('./app/data/room_ids_by_floor.json') as file:
+        with open('./app/data/room_ids.json') as file:
             return json.load(file)
 
     def _get_all_days_events(self, calendar, rooms, date):

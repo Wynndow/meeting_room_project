@@ -16,18 +16,22 @@
     <div class="header-contents" id="date-floor-div">
       <form action="/{% if building == 'aviation' %}aviation{% endif %}" method="get" class="header-contents">
         <div class="input-group">
-          <span class="input-group-addon" id="floor-addon">Floor</span>
-          <select name="floor" class="selectpicker form-control" aria-decribedby="floor-addon">
+          <span class="input-group-addon" id="floor-addon">Floor or Room Type</span>
+          <select name="room_group" class="selectpicker form-control" aria-decribedby="floor-addon">
             {% if building == 'aviation' %}
-            <option {% if floor=="all" %}selected{% endif %} value="all">All</option>
-            <option {% if floor=="third" %}selected{% endif %} value="third">Third</option>
-            <option {% if floor=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
-            <option {% if floor=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
+            <option {% if room_group=="all" %}selected{% endif %} value="all">All</option>
+            <option {% if room_group=="third" %}selected{% endif %} value="third">Third</option>
+            <option {% if room_group=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
+            <option {% if room_groupo=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
             {% endif %}
             {% if building == 'whitechapel' %}
-            <option {% if floor=="wc-all" %}selected{% endif %} value="wc-all">All</option>
-            <option {% if floor=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth</option>
-            <option {% if floor=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh</option>
+            <option {% if room_group=="wc-all" %}selected{% endif %} value="wc-all">All</option>
+            <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth floor</option>
+            <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh floor</option>
+            <option {% if room_group=="wc-meeting" %}selected{% endif %} value="wc-meeting">Meeting rooms</option>
+            <option {% if room_group=="wc-project" %}selected{% endif %} value="wc-project">Project rooms</option>
+            <option {% if room_group=="wc-think" %}selected{% endif %} value="wc-think">Think Tanks</option>
+            <option {% if room_group=="wc-other" %}selected{% endif %} value="wc-other">Other rooms</option>
             {% endif %}
           </select>
         </div>
@@ -66,7 +70,7 @@
         Time
       </div><!--
     -->{% for room in rooms %}<!--
-    --><div class='sideways-text {{floor}}-width top-align'><!--
+    --><div class='sideways-text {{room_group}}-width top-align'><!--
         -->{{ room.resourceName }}<!--
       --></div><!--
     -->{% endfor %}<!--
