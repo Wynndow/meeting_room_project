@@ -132,35 +132,49 @@ h1 {
 .wc-all-width {
   width: 3.16vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .wc-sixth-width {
   width: 6.33vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .wc-seventh-width {
   width: 6.33vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .wc-meeting-width {
   width: 19vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .wc-project-width {
   width: 13.57vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .wc-think-width {
   width: 7.3vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 .wc-other-width {
   width: 19vw;
   display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 @media (max-width: 700px) {
