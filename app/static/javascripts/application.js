@@ -1,7 +1,7 @@
-$( document ).ready(function(){
+$(window).load(function(){
 
   var place = $( '.hour:nth-child(7)' ).offset().top
-  $('body').scrollTop(place);
+  $(window).scrollTop(place);
 
   $('.Free, .Busy').hover(
     function() {
