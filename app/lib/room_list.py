@@ -37,6 +37,7 @@ class RoomList():
 
     def _build_free_busy_body(self, times, calendar_ids):
         return {
+            "calendarExpansionMax": 50,
             "timeMin": times['start'],
             "timeMax": times['end'],
             "timeZone": 'UTC',
