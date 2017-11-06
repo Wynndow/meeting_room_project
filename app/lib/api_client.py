@@ -8,7 +8,7 @@ from ..lib.room_list import RoomList
 def get_room_list(room_group):
     resources = _fetch_resources()
     filtered = _filter_rooms(resources, room_group)
-    return RoomList(_neaten_room_names(filtered))
+    return RoomList(filtered)
 
 
 def _fetch_resources():
@@ -29,12 +29,6 @@ def _filter_rooms(resources, room_group):
                 output.append(resource)
 
     return output
-
-
-def _neaten_room_names(rooms):
-    for room in rooms:
-        room['resourceName'] = room['resourceName'].replace('Meeting Room ', '')
-    return rooms
 
 
 def _load_room_ids():
