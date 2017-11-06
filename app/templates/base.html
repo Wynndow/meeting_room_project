@@ -14,17 +14,10 @@
 <section class="header container">
   <div class="row">
     <div class="header-contents" id="date-floor-div">
-      <form action="/{% if building == 'aviation' %}aviation{% endif %}" method="get" class="header-contents">
+      <form action="/" method="get" class="header-contents">
         <div class="input-group">
           <span class="input-group-addon" id="floor-addon">Floor or Room Type</span>
           <select name="room_group" class="selectpicker form-control" aria-decribedby="floor-addon">
-            {% if building == 'aviation' %}
-            <option {% if room_group=="all" %}selected{% endif %} value="all">All</option>
-            <option {% if room_group=="third" %}selected{% endif %} value="third">Third</option>
-            <option {% if room_group=="sixth" %}selected{% endif %} value="sixth">Sixth</option>
-            <option {% if room_groupo=="seventh" %}selected{% endif %} value="seventh">Seventh</option>
-            {% endif %}
-            {% if building == 'whitechapel' %}
             <option {% if room_group=="wc-all" %}selected{% endif %} value="wc-all">All</option>
             <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth floor</option>
             <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh floor</option>
@@ -32,7 +25,6 @@
             <option {% if room_group=="wc-project" %}selected{% endif %} value="wc-project">Project rooms</option>
             <option {% if room_group=="wc-think" %}selected{% endif %} value="wc-think">Think Tanks</option>
             <option {% if room_group=="wc-other" %}selected{% endif %} value="wc-other">Other rooms</option>
-            {% endif %}
           </select>
         </div>
         <div class="input-group with-margin">
@@ -45,11 +37,6 @@
       </form>
     </div>
     <div class="header-contents" id="page-title-div">
-      {% if building == 'aviation' %}
-      <div class="building-link-container">Aviation House - go to <a href="/">Whitechapel</a></div>
-      {% else %}
-      <div class="building-link-container">Whitechapel - go to <a href="/aviation">Aviation House</a></div>
-      {% endif %}
       <div><h1>Meeting Room Availability</h1></div>
     </div>
     <div class="header-contents" id="status-div">
