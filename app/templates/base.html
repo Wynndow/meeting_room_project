@@ -52,6 +52,19 @@
     </div>
   </div>
   <section class="row">
+    <div class="navigation-container">
+      <div class="navigation-arrow">
+          <a href="/?room_group={{ room_group }}&date={{ previous_day }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Previous day</a>
+      </div>
+      <div class="navigation-date">
+        {{ display_date }}
+      </div>
+      <div class="navigation-arrow">
+        <a href="/?room_group={{ room_group }}&date={{ next_day }}">Next day<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </section>
+  <section class="row">
     <div class='room-name-container'>
       <div class='times'>
         Time

@@ -1,6 +1,6 @@
 $(window).load(function(){
 
-  var place = $( '.hour:nth-child(7)' ).offset().top
+  var place = $( '.hour:nth-child(5)' ).offset().top
   $(window).scrollTop(place);
 
   $('.Free, .Busy').hover(
