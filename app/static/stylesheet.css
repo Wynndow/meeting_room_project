@@ -199,3 +199,21 @@ h1 {
 .error-container {
   text-align: center;
 }
+
+.navigation-container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin: 2vh;
+}
+
+.navigation-arrow {
+  width: 10vw;
+  text-align: center;
+}
+
+.navigation-date {
+  font-size: 2.5vh;
+  width: 25vw;
+  text-align: center;
+}
