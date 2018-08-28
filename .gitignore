@@ -2,6 +2,7 @@
 .cache
 .coverage
 client_secret.json
+manifest.yml.example
 __pycache__
 
 /venv
