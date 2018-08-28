@@ -8,7 +8,7 @@ from flask import current_app
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from smtp_server import LoggedInServer
+from .smtp_server import LoggedInServer
 
 
 class EmailReminder():
@@ -106,7 +106,7 @@ class EmailReminder():
         )
 
     def _email_admin(self, subject, content):
-        message = MIMEText(content.encode('utf-8'))
+        message = MIMEText(content)
         message['Subject'] = subject
         message['From'] = self.admin
         message['To'] = self.admin
@@ -129,7 +129,7 @@ class EmailReminder():
         text = text_body.render(events=events, day=self.day_in_question)
         html = html_body.render(events=events, day=self.day_in_question)
 
-        part1 = MIMEText(text.encode('utf-8'), 'plain')
-        part2 = MIMEText(html.encode('utf-8'), 'html')
+        part1 = MIMEText(text, 'plain')
+        part2 = MIMEText(html, 'html')
 
         return part1, part2
