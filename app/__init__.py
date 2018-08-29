@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Flask
-from flask.ext.bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap
 from config import config
 
 bootstrap = Bootstrap()
