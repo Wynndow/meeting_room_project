@@ -25,7 +25,7 @@ def _filter_rooms(resources, room_group):
     output = []
     for room_id in room_ids:
         for resource in resources:
-            if resource.get('resourceEmail') == room_id:
+            if resource.get('resourceEmail') == room_id['resourceEmail']:
                 output.append(resource)
 
     return output
