@@ -136,14 +136,14 @@ h1 {
 }
 
 .wc-all-width {
-  width: 3.16vw;
+  width: 2.9687vw;
   display: inline-block;
   text-overflow: clip;
   overflow: hidden;
 }
 
 .wc-sixth-width {
-  width: 6.33vw;
+  width: 5.588vw;
   display: inline-block;
   text-overflow: clip;
   overflow: hidden;
@@ -177,7 +177,7 @@ h1 {
   overflow: hidden;
 }
 .wc-other-width {
-  width: 19vw;
+  width: 13.571vw;
   display: inline-block;
   text-overflow: clip;
   overflow: hidden;
