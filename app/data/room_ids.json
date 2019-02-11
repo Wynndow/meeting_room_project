@@ -362,5 +362,78 @@
       "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
       "resourceName": "720 Social Space"
     }
+  ],
+  "wc-no-think-tanks": [{
+      "resourceEmail": "digital.cabinet-office.gov.uk_2d3732323332383833323433@resource.calendar.google.com",
+      "resourceName": "601 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630332d4d522d35@resource.calendar.google.com",
+      "resourceName": "606 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630322d4d522d35@resource.calendar.google.com",
+      "resourceName": "607 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630342d50522d38@resource.calendar.google.com",
+      "resourceName": "608 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630352d50522d38@resource.calendar.google.com",
+      "resourceName": "609 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630362d4d522d38@resource.calendar.google.com",
+      "resourceName": "610 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630382d50522d3136@resource.calendar.google.com",
+      "resourceName": "611 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630372d4d522d38@resource.calendar.google.com",
+      "resourceName": "612 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_35323432333831323531@resource.calendar.google.com",
+      "resourceName": "Academy Blue"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_31313437333431333035@resource.calendar.google.com",
+      "resourceName": "Academy Orange"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730312d50522d3132@resource.calendar.google.com",
+      "resourceName": "701 Project Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730322d50522d38@resource.calendar.google.com",
+      "resourceName": "709 Project Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730332d50522d38@resource.calendar.google.com",
+      "resourceName": "710 Project Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_3231303731353237363138@resource.calendar.google.com",
+      "resourceName": "711 Meeting Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730352d50522d3136@resource.calendar.google.com",
+      "resourceName": "712 Project Room"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730362d4d522d3132@resource.calendar.google.com",
+      "resourceName": "715 Boardroom"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730372d47522d3530@resource.calendar.google.com",
+      "resourceName": "719 The Garage"
+    },
+    {
+      "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
+      "resourceName": "720 Social Space"
+    }
   ]
 }
