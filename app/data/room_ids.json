@@ -56,10 +56,6 @@
       "resourceName": "616 Think Tank"
     },
     {
-      "resourceEmail": "digital.cabinet-office.gov.uk_2d343138343630323538@resource.calendar.google.com",
-      "resourceName": "Mothers' Room"
-    },
-    {
       "resourceEmail": "digital.cabinet-office.gov.uk_35323432333831323531@resource.calendar.google.com",
       "resourceName": "Academy Blue"
     },
@@ -123,10 +119,6 @@
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
       "resourceName": "720 Social Space"
-    },
-    {
-      "resourceEmail": "digital.cabinet-office.gov.uk_34373138303834393235@resource.calendar.google.com",
-      "resourceName": "Multi-Faith Room"
     }
   ],
   "wc-all": [{
@@ -184,10 +176,6 @@
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_39353439353434363034@resource.calendar.google.com",
       "resourceName": "616 Think Tank"
-    },
-    {
-      "resourceEmail": "digital.cabinet-office.gov.uk_2d343138343630323538@resource.calendar.google.com",
-      "resourceName": "Mothers' Room"
     },
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_35323432333831323531@resource.calendar.google.com",
@@ -252,10 +240,6 @@
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
       "resourceName": "720 Social Space"
-    },
-    {
-      "resourceEmail": "digital.cabinet-office.gov.uk_34373138303834393235@resource.calendar.google.com",
-      "resourceName": "Multi-Faith Room"
     }
   ],
   "wc-meeting": [{
@@ -357,10 +341,7 @@
       "resourceName": "714 Think Tank"
     }
   ],
-  "wc-other": [{
-      "resourceEmail": "digital.cabinet-office.gov.uk_2d343138343630323538@resource.calendar.google.com",
-      "resourceName": "Mothers' Room"
-    },
+  "wc-other": [
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_35323432333831323531@resource.calendar.google.com",
       "resourceName": "Academy Blue"
@@ -380,10 +361,6 @@
     {
       "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
       "resourceName": "720 Social Space"
-    },
-    {
-      "resourceEmail": "digital.cabinet-office.gov.uk_34373138303834393235@resource.calendar.google.com",
-      "resourceName": "Multi-Faith Room"
     }
   ]
 }
