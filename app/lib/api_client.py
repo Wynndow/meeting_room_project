@@ -17,9 +17,9 @@ def _fetch_resources():
 
 
 def _filter_rooms(resources, room_group):
-    room_ids = ROOM_IDS.get(room_group)
+    room_ids = [room for room in ROOM_IDS if room_group in room['lists']]
 
-    if room_ids is None:
+    if not room_ids:
         raise InvalidUsage("You've submitted an invalid floor or room type!")
 
     output = []
@@ -33,7 +33,7 @@ def _filter_rooms(resources, room_group):
 
 
 def _load_room_ids():
-    with open('./app/data/room_ids.json') as file:
+    with open('./app/data/room_ids_new.json') as file:
         return json.load(file)
 
 ROOM_IDS = _load_room_ids()
