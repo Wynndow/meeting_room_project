@@ -33,7 +33,7 @@ def _filter_rooms(resources, room_group):
 
 
 def _load_room_ids():
-    with open('./app/data/room_ids_new.json') as file:
+    with open('./app/data/room_ids.json') as file:
         return json.load(file)
 
 ROOM_IDS = _load_room_ids()
