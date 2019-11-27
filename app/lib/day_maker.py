@@ -12,7 +12,10 @@ def create_full_days(rooms, free_busy):
     output = {}
     for room in rooms:
         booking_object_list = _create_booking_object_list(free_busy.get(room.get('resourceEmail')).get('busy'))
-        formatted_list = [{'times': b.times(), 'length': b.length(), 'status': b.status} for b in booking_object_list]
+        formatted_list = [
+            {'times': b.times(), 'length': b.length(), 'status': b.status, 'from_to': b.from_to_for_calendar_link()}
+            for b in booking_object_list
+        ]
         output[room.get('resourceEmail')] = formatted_list
     return output
 

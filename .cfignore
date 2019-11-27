@@ -1,1 +1,15 @@
-.gitignore
+*.py[cod]
+.cache
+.coverage
+client_secret.json
+manifest.yml.example
+manifest.yml
+__pycache__
+
+/venv
+.envrc
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
