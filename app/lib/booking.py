@@ -16,3 +16,6 @@ class Booking():
 
     def is_right_after_(self, booking):
         return self.start == booking.end
+
+    def from_to_for_calendar_link(self):
+        return f"{self.start.strftime('%Y%m%dT%H%M%SZ')}/{self.end.strftime('%Y%m%dT%H%M%SZ')}"
