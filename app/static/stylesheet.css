@@ -174,6 +174,13 @@ h1 {
   overflow: hidden;
 }
 
+.wc-rooms-with-walls-no-think-tanks-width {
+  width: 7.3076vw;
+  display: inline-block;
+  text-overflow: clip;
+  overflow: hidden;
+}
+
 @media (max-width: 700px) {
   .sideways-text {
     transform: rotate(90deg);
