@@ -1,0 +1,91 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}GDS Meeting Room Availablity{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include "_favicons.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="header container">
+  <div class="row">
+    <div class="header-contents" id="date-floor-div">
+      <form action="/" method="get" class="header-contents">
+        <div class="input-group">
+          <span class="input-group-addon" id="floor-addon">Floor or Room Type</span>
+          <select name="room_group" class="selectpicker form-control" aria-decribedby="floor-addon">
+            <option {% if room_group=="wc-all" %}selected{% endif %} value="wc-all">All</option>
+            <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth floor</option>
+            <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh floor</option>
+            <option {% if room_group=="wc-meeting" %}selected{% endif %} value="wc-meeting">Meeting rooms</option>
+            <option {% if room_group=="wc-project" %}selected{% endif %} value="wc-project">Project rooms</option>
+            <option {% if room_group=="wc-think" %}selected{% endif %} value="wc-think">Think tanks</option>
+            <option {% if room_group=="wc-no-think-tanks" %}selected{% endif %} value="wc-no-think-tanks">All apart from think tanks</option>
+            <option {% if room_group=="wc-rooms-with-walls-no-think-tanks" %}selected{% endif %} value="wc-rooms-with-walls-no-think-tanks">Rooms with walls, but not think tanks</option>
+            <option {% if room_group=="wc-other" %}selected{% endif %} value="wc-other">Other rooms</option>
+          </select>
+        </div>
+        <div class="input-group with-margin">
+          <span class="input-group-addon" id="date-addon">Date</span>
+          <input class="form-control" type="date" name="date" value="{{ date }}" aria-decribedby="date-addon"/>
+        </div>
+        <div class="submit-container with-margin">
+          <input type="submit" value="Submit" class="btn btn-primary"/>
+        </div>
+      </form>
+    </div>
+    <div class="header-contents" id="page-title-div">
+      <div><h1>Meeting Room Availability</h1></div>
+    </div>
+    <div class="header-contents" id="status-div">
+      <div class="well well-sm" id="header-status-well">
+        Status: <span id="header-status">---</span>
+      </div>
+      <div class="well well-sm" id="header-time-well">
+        Time: <span id="header-time">---</span>
+      </div>
+      <div class="feedback-container with-margin">
+          <a href="mailto:meetingroom.notifications@digital.cabinet-office.gov.uk?Subject=Feedback" class="btn btn-primary">Leave feedback</a>
+      </div>
+    </div>
+  </div>
+  <section class="row">
+    <div class="navigation-container">
+      <div class="navigation-arrow">
+          <a href="/?room_group={{ room_group }}&date={{ previous_day }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Previous day</a>
+      </div>
+      <div class="navigation-date">
+        {{ display_date }}
+      </div>
+      <div class="navigation-arrow">
+        <a href="/?room_group={{ room_group }}&date={{ next_day }}">Next day<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </section>
+  <section class="row">
+    <div class='room-name-container'>
+      <div class='times'>
+        Time
+      </div><!--
+    -->{% for room in rooms %}<!--
+    --><div class='sideways-text {{room_group}}-width top-align'><!--
+        -->{{ room.customName }}<!--
+      --></div><!--
+    -->{% endfor %}<!--
+   --></div>
+  </section>
+</section>
+{% block page_content %}{% endblock %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="{{ url_for('static', filename='javascripts/application.js') }}"></script>
+<script src="{{ url_for('static', filename='javascripts/analytics.js') }}"></script>
+{% endblock %}

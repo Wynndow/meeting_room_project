@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block page_content %}
+<section class='block-container'><!--
+--><div class='times top-align'>
+    {% for time in times %}
+      <div class='hour'>
+        {{time}}:00
+      </div>
+    {% endfor %}
+  </div><!--
+  -->{% for room in rooms %}<!--
+  --><div class='{{room_group}}-width top-align'>
+        {% for booking in full_days.get(room.resourceEmail) %}
+            <div class='{{ booking.status }}' style='height: {{ booking.length }}px'>
+              {% if booking.status == "Free" %}
+                <a href='https://calendar.google.com/calendar/render?action=TEMPLATE&text=New meeting&dates={{ booking.from_to }}&add={{ room.resourceEmail }}' target="_blank"><span class="div-link"></span></a>
+              {% endif %}
+              <div>{{ booking.status }}</div>
+              <div>{{ booking.times }}</div>
+            </div>
+          {% endfor %}
+      </div><!--
+    -->{% endfor %}<!--
+--></section>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+Hello,
+
+Your meeting room booking details for {{day}} are:
+
+{% for event in events %}
+  Title: {{event.summary}}
+  Room: {{ event.location }}
+  Start: {{ event.start }}
+  End: {{ event.end }}
+
+{% endfor %}
+
+Delete your room booking if you don't need it
+---------------------------------------------
+
+If you don't need the room booking anymore, please delete it so someone else can use the room.
+
+You can delete a room booking in a series without affecting your future bookings.
+
+Read how to delete a room booking using Google Calendar:
+https://support.google.com/calendar/answer/37113?hl=en&ref_topic=3417926
+
+
+Think about using a smaller room
+--------------------------------
+
+If you've got fewer people coming to the meeting than you first thought, it would be great if you could try moving to a smaller room.
+
+Check if a meeting room's free at:https://meeting-rooms.cloudapps.digital/
+
+Thanks,
+Your friendly meeting room app
