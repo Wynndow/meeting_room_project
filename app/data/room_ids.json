@@ -1,301 +1,95 @@
-[{
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d3732323332383833323433@resource.calendar.google.com",
-    "resourceName": "601 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d39303137313535363439@resource.calendar.google.com",
-    "resourceName": "602 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d323434313539363334@resource.calendar.google.com",
-    "resourceName": "603 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630332d4d522d35@resource.calendar.google.com",
-    "resourceName": "606 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630322d4d522d35@resource.calendar.google.com",
-    "resourceName": "607 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630342d50522d38@resource.calendar.google.com",
-    "resourceName": "608 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630352d50522d38@resource.calendar.google.com",
-    "resourceName": "609 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630362d4d522d38@resource.calendar.google.com",
-    "resourceName": "610 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630382d50522d3136@resource.calendar.google.com",
-    "resourceName": "611 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_57432d362d3630372d4d522d38@resource.calendar.google.com",
-    "resourceName": "612 Meeting Room",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-meeting",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_3637333738373539333134@resource.calendar.google.com",
-    "resourceName": "613 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d3530343338303132323533@resource.calendar.google.com",
-    "resourceName": "614 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_3136333834313038393433@resource.calendar.google.com",
-    "resourceName": "615 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_39353439353434363034@resource.calendar.google.com",
-    "resourceName": "616 Think Tank",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_35323432333831323531@resource.calendar.google.com",
-    "resourceName": "Academy Blue",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-other",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_31313437333431333035@resource.calendar.google.com",
-    "resourceName": "Academy Orange",
-    "lists": [
-      "wc-sixth",
-      "wc-all",
-      "wc-other",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
-    ]
-  },
+[
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730312d50522d3132@resource.calendar.google.com",
-    "resourceName": "701 Project Room",
+    "resourceName": "701 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-project",
-      "wc-no-think-tanks"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_36393936363630323031@resource.calendar.google.com",
-    "resourceName": "704 Think Tank",
+    "resourceName": "704 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_3836303232383532373631@resource.calendar.google.com",
-    "resourceName": "705 Think Tank",
+    "resourceName": "706 Media Suite",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d3738393631323639393031@resource.calendar.google.com",
-    "resourceName": "707 Think Tank",
-    "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_2d3936363939343035393535@resource.calendar.google.com",
-    "resourceName": "708 Think Tank",
-    "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
+      "all"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730322d50522d38@resource.calendar.google.com",
-    "resourceName": "709 Project Room",
+    "resourceName": "709 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-project",
-      "wc-no-think-tanks"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730332d50522d38@resource.calendar.google.com",
-    "resourceName": "710 Project Room",
+    "resourceName": "710 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-project",
-      "wc-no-think-tanks"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_3231303731353237363138@resource.calendar.google.com",
     "resourceName": "711 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730352d50522d3136@resource.calendar.google.com",
-    "resourceName": "712 Project Room",
+    "resourceName": "712 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-project",
-      "wc-no-think-tanks"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_3635313534303131373833@resource.calendar.google.com",
-    "resourceName": "713 Think Tank",
+    "resourceName": "713 Meeting Room",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
-    ]
-  },
-  {
-    "resourceEmail": "digital.cabinet-office.gov.uk_3434323738343335333632@resource.calendar.google.com",
-    "resourceName": "714 Think Tank",
-    "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-think"
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730362d4d522d3132@resource.calendar.google.com",
     "resourceName": "715 Boardroom",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-other",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
+      "all",
+      "meeting"
+    ]
+  },
+  {
+    "resourceEmail": "digital.cabinet-office.gov.uk_3434323738343335333632@resource.calendar.google.com",
+    "resourceName": "716 Meeting Room",
+    "lists": [
+      "all",
+      "meeting"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730372d47522d3530@resource.calendar.google.com",
-    "resourceName": "719 The Garage",
+    "resourceName": "719a The Garage",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-other",
-      "wc-no-think-tanks",
-      "wc-rooms-with-walls-no-think-tanks"
+      "all"
     ]
   },
   {
     "resourceEmail": "digital.cabinet-office.gov.uk_57432d372d3730382d53482d3230@resource.calendar.google.com",
     "resourceName": "720 Social Space",
     "lists": [
-      "wc-seventh",
-      "wc-all",
-      "wc-other",
-      "wc-no-think-tanks"
+      "all"
     ]
   }
 ]

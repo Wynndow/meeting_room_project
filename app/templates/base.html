@@ -16,17 +16,10 @@
     <div class="header-contents" id="date-floor-div">
       <form action="/" method="get" class="header-contents">
         <div class="input-group">
-          <span class="input-group-addon" id="floor-addon">Floor or Room Type</span>
+          <span class="input-group-addon" id="floor-addon">Room Type</span>
           <select name="room_group" class="selectpicker form-control" aria-decribedby="floor-addon">
-            <option {% if room_group=="wc-all" %}selected{% endif %} value="wc-all">All</option>
-            <option {% if room_group=="wc-sixth" %}selected{% endif %} value="wc-sixth">Sixth floor</option>
-            <option {% if room_group=="wc-seventh" %}selected{% endif %} value="wc-seventh">Seventh floor</option>
-            <option {% if room_group=="wc-meeting" %}selected{% endif %} value="wc-meeting">Meeting rooms</option>
-            <option {% if room_group=="wc-project" %}selected{% endif %} value="wc-project">Project rooms</option>
-            <option {% if room_group=="wc-think" %}selected{% endif %} value="wc-think">Think tanks</option>
-            <option {% if room_group=="wc-no-think-tanks" %}selected{% endif %} value="wc-no-think-tanks">All apart from think tanks</option>
-            <option {% if room_group=="wc-rooms-with-walls-no-think-tanks" %}selected{% endif %} value="wc-rooms-with-walls-no-think-tanks">Rooms with walls, but not think tanks</option>
-            <option {% if room_group=="wc-other" %}selected{% endif %} value="wc-other">Other rooms</option>
+            <option {% if room_group=="all" %}selected{% endif %} value="all">All</option>
+            <option {% if room_group=="meeting" %}selected{% endif %} value="meeting">Meeting rooms</option>
           </select>
         </div>
         <div class="input-group with-margin">

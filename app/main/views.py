@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 @main.route('/', methods=['GET'])
 def whitechapel():
-    room_group = request.args.get('room_group', 'wc-all')
+    room_group = request.args.get('room_group', 'all')
     date = request.args.get('date', str(datetime.utcnow())[0:10])
     room_list = api_client.get_room_list(room_group)
     free_busy = room_list.get_free_busy(date).get('calendars')

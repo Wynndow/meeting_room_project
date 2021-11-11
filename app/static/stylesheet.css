@@ -118,64 +118,15 @@ h1 {
   border-top: black solid 1px;
 }
 
-.wc-all-width {
-  width: 3.166vw;
+.all-width {
+  width: 7.916vw;
   display: inline-block;
   text-overflow: clip;
   overflow: hidden;
 }
 
-.wc-sixth-width {
-  width: 5.9375vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-seventh-width {
-  width: 6.785vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-meeting-width {
-  width: 11.87vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-project-width {
-  width: 23.74vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-think-width {
-  width: 7.78vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-other-width {
-  width: 19vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-no-think-tanks-width {
-  width: 5.2777vw;
-  display: inline-block;
-  text-overflow: clip;
-  overflow: hidden;
-}
-
-.wc-rooms-with-walls-no-think-tanks-width {
-  width: 7.3076vw;
+.meeting-width {
+  width: 10.555vw;
   display: inline-block;
   text-overflow: clip;
   overflow: hidden;

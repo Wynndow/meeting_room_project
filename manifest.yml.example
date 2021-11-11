@@ -1,0 +1,15 @@
+---
+applications:
+- name: meeting-rooms
+  memory: 512M
+  buildpack: python_buildpack
+  env:
+      MR_ADMIN_EMAIL:
+      MR_AUTH_TOKEN:
+      MR_AWS_SMTP_PASSWORD:
+      MR_AWS_SMTP_USERNAME:
+      MR_DELEGATED_ACCOUNT:
+      MR_EMAIL_PORT:
+      MR_MAIL_SERVER:
+      MR_TEST_EMAIL_ADDRESS:
+      MR_CLIENT_SECRET_JSON:
