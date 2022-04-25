@@ -40,6 +40,7 @@ class TestingConfig(Config):
     TESTING = True
     TEST_MAIL_ADDRESS = os.environ.get('MR_TEST_EMAIL_ADDRESS')
     MAIL_PASSWORD = 'not_a_password'
+    AUTH_TOKEN = 'anAuthToken'
 
 
 class ProductionConfig(Config):
