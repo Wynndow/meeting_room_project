@@ -38,7 +38,7 @@ class TestEmailReminder():
         self._load_room_ids.return_value = [{
             "resourceEmail": "digital.cabinet-office.gov.uk_123456789@resource.calendar.google.com",
             "resourceName": "Test Meeting Room",
-            "lists": ["wc-all"]
+            "lists": ["all"]
           }]
         self.logged_in_server.return_value = self.server_mock
 
