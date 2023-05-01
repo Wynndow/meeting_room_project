@@ -1,4 +1,4 @@
-Flask==1.0.2
+Flask==2.3.2
 Flask-Script==2.0.5
 Flask-Bootstrap==3.3.6.0
 itsdangerous==0.24
